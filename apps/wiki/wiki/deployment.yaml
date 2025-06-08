@@ -32,8 +32,8 @@ spec:
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: wiki-postgres-secret
-                  key: DB_PASS
+                  name: postgres-wiki-secret
+                  key: POSTGRES_PASSWORD
             - name: DB_NAME
               value: "wikidb"
           resources:
