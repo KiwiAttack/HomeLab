@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ingress-nginx
+  template:
+    metadata:
+      labels:
+        app: ingress-nginx
+    spec:
+      serviceAccountName: ingress-nginx
+      nodeSelector:
+        kubernetes.io/hostname: k8s-master
+      containers:
+        - name: controller
+          image: registry.k8s.io/ingress-nginx/controller:v1.10.1
+          args:
+            - /nginx-ingress-controller
+            - --ingress-class=nginx
+            - --watch-ingress-without-class=true
+            - --default-backend-service=default/http-default-backend
+          ports:
+            - name: http
+              containerPort: 80
+              hostPort: 80
+            - name: https
+              containerPort: 443
+              hostPort: 443
+          securityContext:
+            allowPrivilegeEscalation: true
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
