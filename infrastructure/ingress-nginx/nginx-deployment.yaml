@@ -23,7 +23,6 @@ spec:
             - /nginx-ingress-controller
             - --ingress-class=nginx
             - --watch-ingress-without-class=true
-            - --default-backend-service=default/http-default-backend
           ports:
             - name: http
               containerPort: 80
