@@ -7,7 +7,7 @@ spec:
     email: server.mehlhorn@gmail.com
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: le-prod-key
+      name: letsencrypt-prod
     solvers:
     - http01:
         ingress:
