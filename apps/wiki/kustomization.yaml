@@ -4,5 +4,7 @@ namespace: wiki
 resources:
   - namespace.yaml
   - pv.yaml
-  - postgres/
-  - wiki/
+  - postgres/deployment.yaml
+  - postgres/service.yaml
+  - wiki/deployment.yaml
+  - wiki/service.yaml
