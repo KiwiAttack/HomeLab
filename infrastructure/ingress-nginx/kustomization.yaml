@@ -6,3 +6,6 @@ resources:
   - nginx-ingressclass.yaml
   - nginx-deployment.yaml
   - nginx-service.yaml
+  - nginx-configmap.yaml
+  - nginx-job.yaml
+  - nginx-serviceaccount.yaml
