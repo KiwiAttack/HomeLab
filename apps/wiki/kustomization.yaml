@@ -8,3 +8,4 @@ resources:
   - postgres/service.yaml
   - wiki/deployment.yaml
   - wiki/service.yaml
+  - wiki/ingress.yaml
