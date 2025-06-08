@@ -1,11 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - nginx-namespace.yaml
-  - nginx-rbac.yaml
-  - nginx-ingressclass.yaml
-  - nginx-deployment.yaml
-  - nginx-service.yaml
-  - nginx-configmap.yaml
-  - nginx-job.yaml
-  - nginx-serviceaccount.yaml
+  - namespace.yaml
+  - rbac.yaml
+  - ingressclass.yaml
+  - deployment.yaml
+  - service.yaml
+  - configmap.yaml
+  - job.yaml
+  - serviceaccount.yaml
