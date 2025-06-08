@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-wiki
+  namespace: wiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-wiki
+  template:
+    metadata:
+      labels:
+        app: postgres-wiki
+    spec:
+      nodeSelector:
+        node-type: bare-metal
+      containers:
+        - name: postgres
+          image: postgres:15
+          env:
+            - name: POSTGRES_DB
+              value: wikidb
+            - name: POSTGRES_USER
+              value: wikiuser
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wiki-postgres-secret
+                  key: POSTGRES_PASSWORD
+          ports:
+            - containerPort: 5432
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-wiki-storage
+      volumes:
+        - name: postgres-wiki-storage
+          persistentVolumeClaim:
+            claimName: postgres-wiki-pvc

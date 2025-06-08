@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wiki
+  namespace: wiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wiki
+  template:
+    metadata:
+      labels:
+        app: wiki
+    spec:
+      nodeSelector:
+        node-type: bare-metal
+      containers:
+        - name: wiki
+          image: requarks/wiki:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_TYPE
+              value: "postgres"
+            - name: DB_HOST
+              value: "postgres-wiki-service"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "wikiuser"
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: wiki-postgres-secret
+                  key: DB_PASS
+            - name: DB_NAME
+              value: "wikidb"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: wiki-storage
+              mountPath: /wiki/data
+      volumes:
+        - name: wiki-storage
+          persistentVolumeClaim:
+            claimName: wiki-nfs-pvc
