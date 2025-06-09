@@ -2,10 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: wiki
 resources:
-  - namespace.yaml
-  - pv.yaml
+  - storage/pv-postgres.yaml
+  - storage/pv-wiki.yaml
   - postgres/deployment.yaml
   - postgres/service.yaml
-  - wiki/deployment.yaml
-  - wiki/service.yaml
-  - wiki/ingress.yaml
+  - base/namespace.yaml
+  - base/deployment.yaml
+  - base/service.yaml
+  - base/ingress.yaml

@@ -1,0 +1,30 @@
+# Postgres PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-wiki-pv
+  namespace: wiki
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  nfs:
+    server: 192.168.178.200
+    path: /srv/k8s-data/postgres-wiki
+---
+# Postgres PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-wiki-pvc
+  namespace: wiki
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ""
