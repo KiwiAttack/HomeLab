@@ -2,9 +2,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: ingress-nginx
-  namespace: ingress-nginx
+  namespace: flux-system
 spec:
   interval: 10m
+  releaseName: ingress-nginx
+  targetNamespace: ingress-nginx
   chart:
     spec:
       chart: ingress-nginx
@@ -15,6 +17,12 @@ spec:
         namespace: flux-system
   values:
     controller:
-      hostNetwork: true
+      replicaCount: 1
       nodeSelector:
         kubernetes.io/hostname: k8s-master
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+          effect: "NoSchedule"
+      service:
+        type: LoadBalancer
