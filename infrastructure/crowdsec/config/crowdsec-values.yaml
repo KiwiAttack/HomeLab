@@ -16,6 +16,7 @@ data:
       data_dir: /var/lib/crowdsec/data
 
     agent:
+      acquisition: []
       containerSecurityContext:
         privileged: true
       volumeMounts:
