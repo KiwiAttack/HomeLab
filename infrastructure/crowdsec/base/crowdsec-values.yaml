@@ -17,11 +17,7 @@ data:
 
     agent:
       acquisition:
-        - namespace: ""
-          podName: ""
-          containerName: ""
-          program: nginx
-          source: /var/log/nginx/access.log
+        enabled: false
       containerSecurityContext:
         privileged: true
       volumeMounts:
