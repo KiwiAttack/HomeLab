@@ -55,6 +55,8 @@ metadata:
   name: crowdsec
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: ingress-nginx
   interval: 10m
   prune: true
   path: ./infrastructure/crowdsec
