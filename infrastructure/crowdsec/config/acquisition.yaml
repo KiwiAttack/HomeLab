@@ -1,4 +1,11 @@
-filenames:
-  - /var/log/nginx/access.log
-labels:
-  type: nginx
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: crowdsec-acquisition
+  namespace: crowdsec
+data:
+  acquisition.yaml: |
+    filenames:
+      - /var/log/nginx/access.log
+    labels:
+      type: nginx
