@@ -7,6 +7,7 @@ spec:
     storage: 5Gi
   accessModes:
     - ReadWriteMany
+  storageClassName: ""
   nfs:
     path: /srv/k8s-data/nginx
     server: 192.168.178.200
@@ -24,3 +25,4 @@ spec:
     requests:
       storage: 5Gi
   volumeName: nginx-logs-pv
+  storageClassName: ""
