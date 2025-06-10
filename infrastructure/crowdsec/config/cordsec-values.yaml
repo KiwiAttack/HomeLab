@@ -1,0 +1,43 @@
+config:
+  acquisition:
+    volumes:
+      - name: acquisition-volume
+        configMap:
+          name: crowdsec-acquisition
+    mountPath: /etc/crowdsec/acquis.yaml
+    subPath: acquisition.yaml
+
+  data_dir: /var/lib/crowdsec/data
+
+agent:
+  acquisition:
+    enabled: false  # disable auto-discovery, use mounted acquisition.yaml
+
+  containerSecurityContext:
+    privileged: true  # Needed to access host logs
+
+  volumeMounts:
+    - name: nginx-logs
+      mountPath: /var/log/nginx
+      readOnly: true
+
+  volumes:
+    - name: nginx-logs
+      hostPath:
+        path: /var/log/nginx
+        type: Directory
+
+dashboard:
+  enabled: true
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: dashboard.kiwilab.dev
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - dashboard.kiwilab.dev
+        secretName: crowdsec-dashboard-tls
