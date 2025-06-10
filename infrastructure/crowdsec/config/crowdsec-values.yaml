@@ -16,7 +16,11 @@ data:
       data_dir: /var/lib/crowdsec/data
 
     agent:
-      acquisition: []
+      acquisition:
+        - filenames:
+            - /var/log/nginx/access.log
+          labels:
+            type: nginx
       containerSecurityContext:
         privileged: true
       volumeMounts:
