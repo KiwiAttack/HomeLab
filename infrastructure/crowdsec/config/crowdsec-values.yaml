@@ -4,7 +4,7 @@ metadata:
   name: crowdsec-values
   namespace: crowdsec
 data:
-  crowdsec-values.yaml: |
+  values.yaml: |
     config:
       acquisition:
         volumes:
