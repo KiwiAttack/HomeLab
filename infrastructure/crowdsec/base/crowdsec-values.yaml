@@ -19,7 +19,6 @@ data:
       acquisition:
         - namespace: ingress-nginx
           podName: ".*"
-          containerName: ".*"
           program: nginx
       containerSecurityContext:
         privileged: true
