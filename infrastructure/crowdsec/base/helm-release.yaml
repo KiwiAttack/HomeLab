@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: crowdsec
+  namespace: crowdsec
+spec:
+  releaseName: crowdsec
+  interval: 10m
+  chart:
+    spec:
+      chart: crowdsec
+      version: 0.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: crowdsec
+        namespace: flux-system
+  targetNamespace: crowdsec
+  install:
+    createNamespace: true
+  values:
+    lapi:
+      enabled: true
+    agent:
+      acquisition:
+        # Monitor auth logs via journalctl
+        - type: journalctl
+          filters:
+            - expression: "EXISTS SYSLOG_IDENTIFIER and SYSLOG_IDENTIFIER == 'sshd'"
