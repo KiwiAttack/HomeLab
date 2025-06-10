@@ -21,7 +21,7 @@ data:
           podName: ""
           containerName: ""
           program: nginx
-          source /var/log/nginx/access.log
+          source: /var/log/nginx/access.log
       containerSecurityContext:
         privileged: true
       volumeMounts:
