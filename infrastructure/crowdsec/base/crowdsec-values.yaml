@@ -17,18 +17,12 @@ data:
 
     agent:
       acquisition:
-        enabled: false
+        - namespace: ingress-nginx
+          podName: ".*"
+          containerName: ".*"
+          program: nginx
       containerSecurityContext:
         privileged: true
-      volumeMounts:
-        - name: nginx-logs
-          mountPath: /var/log/nginx
-          readOnly: true
-      volumes:
-        - name: nginx-logs
-          hostPath:
-            path: /var/log/nginx
-            type: Directory
 
     dashboard:
       enabled: true
