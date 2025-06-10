@@ -7,6 +7,8 @@ spec:
   interval: 10m
   releaseName: crowdsec
   targetNamespace: crowdsec
+  install:
+    createNamespace: true
   chart:
     spec:
       chart: crowdsec
@@ -16,13 +18,16 @@ spec:
         name: crowdsec
         namespace: flux-system
   values:
+    container_runtime: containerd
+
     lapi:
       enabled: true
+
     agent:
       acquisition:
         - namespace: ingress-nginx
           podName: ingress-nginx-controller-*
-          program: stdout
-        - type: journalctl
-          filters:
-            - expression: "EXISTS SYSLOG_IDENTIFIER and SYSLOG_IDENTIFIER == 'sshd'"
+          program: nginx
+      env:
+        - name: COLLECTIONS
+          value: crowdsecurity/nginx
