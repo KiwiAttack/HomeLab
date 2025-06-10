@@ -1,33 +1,24 @@
-apiVersion: helm.toolkit.fluxcd.io/v2
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: crowdsec
-  namespace: flux-system
+  namespace: crowdsec
 spec:
   interval: 10m
-  releaseName: crowdsec
-  targetNamespace: crowdsec
   install:
     createNamespace: true
   chart:
     spec:
       chart: crowdsec
-      version: 0.19.3
+      version: "*"
       sourceRef:
         kind: HelmRepository
         name: crowdsec
         namespace: flux-system
   values:
-    container_runtime: containerd
-
-    lapi:
-      enabled: true
-
+    # Customize as needed — this is minimal example
     agent:
-      acquisition:
-        - namespace: ingress-nginx
-          podName: ingress-nginx-controller-*
-          program: nginx
-      env:
-        - name: COLLECTIONS
-          value: crowdsecurity/nginx
+      acquisition: []
+    lapi:
+      dashboard:
+        enabled: false
