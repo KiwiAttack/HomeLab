@@ -37,6 +37,10 @@ spec:
         - name: nginx-config
           configMap:
             name: custom-nginx-config
+        - name: nginx-logs
+          hostPath:
+            path: /var/log/nginx
+            type: DirectoryOrCreate
 
       extraVolumeMounts:
         - name: nginx-config
