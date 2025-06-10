@@ -5,4 +5,4 @@ resources:
   - base/nginx-repo.yaml
   - base/helm-release.yaml
   - base/custom-nginx-config.yaml
-  - storage/pv-nginx.yaml
+#  - storage/pv-nginx.yaml

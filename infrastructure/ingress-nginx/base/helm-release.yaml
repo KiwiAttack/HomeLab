@@ -37,9 +37,6 @@ spec:
         - name: nginx-config
           configMap:
             name: custom-nginx-config
-        - name: nginx-logs
-          persistentVolumeClaim:
-            claimName: nginx-logs-pvc
 
       extraVolumeMounts:
         - name: nginx-config
