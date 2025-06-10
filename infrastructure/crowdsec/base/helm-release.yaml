@@ -19,4 +19,9 @@ spec:
   valuesFrom:
     - kind: ConfigMap
       name: crowdsec-values
+      namespace: crowdsec
       valuesKey: values.yaml
+    - kind: ConfigMap
+      name: crowdsec-acquisition
+      namespace: crowdsec
+      valuesKey: acquisition.yaml
