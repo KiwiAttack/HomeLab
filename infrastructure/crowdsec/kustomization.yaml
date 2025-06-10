@@ -6,6 +6,8 @@ resources:
   - base/helm-repo.yaml
   - base/namespace.yaml
 
+namespace: crowdsec
+
 configMapGenerator:
   - name: crowdsec-values
     files:
