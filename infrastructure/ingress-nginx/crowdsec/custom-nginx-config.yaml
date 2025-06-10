@@ -8,7 +8,7 @@ data:
     auth_request /crowdsec-auth;
     location = /crowdsec-auth {
         internal;
-        proxy_pass http://localhost:8080/api/v1/nginx;
+        proxy_pass http://192.168.178.200:8080/api/v1/nginx;
         proxy_pass_request_body off;
         proxy_set_header Content-Length "";
         proxy_set_header X-Original-URI $request_uri;
