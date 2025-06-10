@@ -4,8 +4,9 @@ metadata:
   name: crowdsec
   namespace: flux-system
 spec:
-  releaseName: crowdsec
   interval: 10m
+  releaseName: crowdsec
+  targetNamespace: crowdsec
   chart:
     spec:
       chart: crowdsec
@@ -14,9 +15,6 @@ spec:
         kind: HelmRepository
         name: crowdsec
         namespace: flux-system
-  targetNamespace: crowdsec
-  install:
-    createNamespace: true
   values:
     lapi:
       enabled: true
