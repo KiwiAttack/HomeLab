@@ -1,3 +1,4 @@
+# infrastructure/crowdsec/dashboard-helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -5,22 +6,19 @@ metadata:
   namespace: crowdsec
 spec:
   interval: 10m
+  releaseName: crowdsec-dashboard
+  targetNamespace: crowdsec
   chart:
     spec:
       chart: crowdsec-dashboard
-      version: 0.6.3
       sourceRef:
         kind: HelmRepository
         name: crowdsec
         namespace: flux-system
   values:
-    service:
-      type: ClusterIP
     ingress:
       enabled: true
       className: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-staging"
       hosts:
         - host: dashboard.kiwilab.dev
           paths:
