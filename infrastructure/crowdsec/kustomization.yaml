@@ -5,5 +5,4 @@ resources:
   - base/helm-repo.yaml
   - base/helm-release.yaml
   - base/namespace.yaml
-  #- config/acquisition.yaml
-  - config/crowdsec-values.yaml
+  - base/crowdsec-values.yaml

@@ -17,10 +17,11 @@ data:
 
     agent:
       acquisition:
-        - filenames:
-            - /var/log/nginx/access.log
-          labels:
-            type: nginx
+        - namespace: ""
+          podName: ""
+          containerName: ""
+          program: nginx
+          source /var/log/nginx/access.log
       containerSecurityContext:
         privileged: true
       volumeMounts:
