@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: crowdsec-dashboard
-  namespace: crowdsec
+  namespace: flux-system
 spec:
   interval: 10m
   releaseName: crowdsec-dashboard
