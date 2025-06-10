@@ -20,7 +20,6 @@ spec:
       enabled: true
     agent:
       acquisition:
-        # Monitor auth logs via journalctl
         - type: journalctl
           filters:
             - expression: "EXISTS SYSLOG_IDENTIFIER and SYSLOG_IDENTIFIER == 'sshd'"

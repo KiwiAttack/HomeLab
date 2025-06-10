@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - base/namespace.yaml
   - base/crowdsec-repo.yaml
   - base/helm-release.yaml
-  - base/namespace.yaml
