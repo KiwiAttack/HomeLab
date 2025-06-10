@@ -20,6 +20,9 @@ spec:
       enabled: true
     agent:
       acquisition:
+        - namespace: ingress-nginx
+          podName: ingress-nginx-controller-*
+          program: stdout
         - type: journalctl
           filters:
             - expression: "EXISTS SYSLOG_IDENTIFIER and SYSLOG_IDENTIFIER == 'sshd'"
