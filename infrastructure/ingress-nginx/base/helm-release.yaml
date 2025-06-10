@@ -37,13 +37,13 @@ spec:
         - name: nginx-config
           configMap:
             name: custom-nginx-config
-        #- name: nginx-logs
-        #  hostPath:
-        #    path: /var/log/nginx
-        #    type: DirectoryOrCreate
+        - name: nginx-logs
+          hostPath:
+            path: /var/log/nginx
+            type: DirectoryOrCreate
 
       extraVolumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d
-        #- name: nginx-logs
-        #  mountPath: /var/log/nginx
+        - name: nginx-logs
+          mountPath: /var/log/nginx
