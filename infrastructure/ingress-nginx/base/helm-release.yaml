@@ -26,6 +26,12 @@ spec:
           effect: "NoSchedule"
       service:
         type: LoadBalancer
+      config:
+        use-forwarded-headers: "true"
+        compute-full-forwarded-for: "true"
+        enable-real-ip: "true"
+        real-ip-header: "X-Forwarded-For"
+        set-real-ip-from: "0.0.0.0/0"
 
       extraVolumes:
         - name: nginx-config
