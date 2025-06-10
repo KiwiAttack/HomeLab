@@ -26,3 +26,29 @@ spec:
           effect: "NoSchedule"
       service:
         type: LoadBalancer
+
+      extraContainers:
+        - name: crowdsec-bouncer
+          image: crowdsecurity/nginx-bouncer:latest
+          env:
+            - name: CROWDSEC_BOUNCER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: crowdsec-bouncer-secret
+                  key: api-key
+            - name: CROWDSEC_LAPI_URL
+              value: http://k8s-master.local:8080/
+            - name: GIN_MODE
+              value: release
+          ports:
+            - containerPort: 8080
+              name: bouncer-port
+
+      extraVolumes:
+        - name: nginx-config
+          configMap:
+            name: custom-nginx-config
+
+      extraVolumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d

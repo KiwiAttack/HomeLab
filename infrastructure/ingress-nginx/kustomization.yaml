@@ -4,3 +4,5 @@ resources:
   - base/namespace.yaml
   - base/nginx-repo.yaml
   - base/helm-release.yaml
+  - crowdsec/crowdsec-bouncer-secret.yaml
+  - crowdsec/custom-nginx-config.yaml
