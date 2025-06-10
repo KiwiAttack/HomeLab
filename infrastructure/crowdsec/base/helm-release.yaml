@@ -2,14 +2,14 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: crowdsec
-  namespace: crowdsec
+  namespace: flux-system
 spec:
   releaseName: crowdsec
   interval: 10m
   chart:
     spec:
       chart: crowdsec
-      version: 0.6.1
+      version: 0.19.3
       sourceRef:
         kind: HelmRepository
         name: crowdsec
