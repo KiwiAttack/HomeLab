@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: crowdsec
-  namespace: flux-system
+  namespace: crowdsec
 spec:
   interval: 10m
   releaseName: crowdsec
@@ -15,7 +15,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: crowdsec
-        namespace: flux-system
+        namespace: crowdsec
   valuesFrom:
     - kind: ConfigMap
       name: crowdsec-values
@@ -24,3 +24,4 @@ spec:
     - kind: ConfigMap
       name: crowdsec-acquisition
       valuesKey: acquisition.yaml
+      namespace: crowdsec
