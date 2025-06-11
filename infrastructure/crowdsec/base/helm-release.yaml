@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: crowdsec
-      version: 0.19.3
+      version: 1.6.0
       sourceRef:
         kind: HelmRepository
         name: crowdsec
@@ -24,6 +24,7 @@ spec:
             - /var/log/nginx/error.log
           labels:
             type: "nginx"
+          poll_without_inotify: true
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
