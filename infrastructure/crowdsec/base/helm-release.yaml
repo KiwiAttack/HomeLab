@@ -22,10 +22,6 @@ spec:
         - namespace: ingress-nginx
           podName: ingress-nginx-controller-*
           program: nginx
-          poll_without_inotify: true
-          labels:
-            type: "nginx"
-            log_type: "nginx"
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
