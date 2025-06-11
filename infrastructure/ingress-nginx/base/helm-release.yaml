@@ -32,6 +32,9 @@ spec:
         enable-real-ip: "true"
         real-ip-header: "X-Forwarded-For"
         set-real-ip-from: "0.0.0.0/0"
+        plugins: "crowdsec"
+        lua-shared-dicts: "crowdsec_cache: 50m"
+        resolver: "192.168.178.200"
       extraVolumes:
         - name: nginx-config
           configMap:
@@ -40,8 +43,34 @@ spec:
           hostPath:
             path: /var/log/nginx
             type: DirectoryOrCreate
+        - name: crowdsec-bouncer-plugin
+          emptyDir: {}
+      extraInitContainers:
+        - name: init-clone-crowdsec-bouncer
+          image: crowdsecurity/lua-bouncer-plugin:v1.0.5
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: API_URL
+              value: "http://192.168.178.200:8080"
+            - name: API_KEY # Mount the API key from the Secret
+              valueFrom:
+                secretKeyRef:
+                  name: crowdsec-nginx-bouncer-api-key
+                  key: api-key
+            - name: BOUNCER_CONFIG
+              value: "/crowdsec/crowdsec-bouncer.conf"
+          command:
+            - 'sh'
+            - '-c'
+            - 'sh /docker_start.sh; mkdir -p /lua_plugins/crowdsec/; cp -R /crowdsec/* /lua_plugins/crowdsec/'
+          volumeMounts:
+            - name: crowdsec-bouncer-plugin
+              mountPath: /lua_plugins
       extraVolumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d
         - name: nginx-logs
           mountPath: /var/log/nginx
+        - name: crowdsec-bouncer-plugin
+          mountPath: /etc/nginx/lua/plugins/crowdsec
+          subPath: crowdsec
