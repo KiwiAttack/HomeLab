@@ -17,19 +17,29 @@ spec:
         namespace: flux-system
   values:
     agent:
-      container_runtime: cri
+      env:
+        - name: COLLECTIONS
+          value: "crowdsecurity/nginx"
       log_level: debug
       acquisition:
-        - filenames:
-          - /var/log/containers/*-ingress-nginx-controller-*_*_*.log
-          force_inotify: true
+        - paths:
+            - /var/log/nginx/access.log
+            - /var/log/nginx/error.log
           labels:
-            type: containerd
-            program: nginx
+            type: "nginx"
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
           effect: "NoSchedule"
+      extraVolumes:
+        - name: host-nginx-logs
+          hostPath:
+            path: /var/log/nginx
+            type: DirectoryOrCreate
+      extraVolumeMounts:
+        - name: host-nginx-logs
+          mountPath: /var/log/nginx
+          readOnly: true
     lapi:
       resources:
         limits:
