@@ -4,3 +4,4 @@ resources:
   - base/namespace.yaml
   - base/crowdsec-repo.yaml
   - base/helm-release.yaml
+  - storage/pv-crowdsec.yaml
