@@ -30,15 +30,15 @@ spec:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
           effect: "NoSchedule"
-      extraVolumes:
-        - name: host-nginx-logs
-          hostPath:
-            path: /var/log/nginx
-            type: DirectoryOrCreate
-      extraVolumeMounts:
-        - name: host-nginx-logs
-          mountPath: /var/log/nginx
-          readOnly: true
+#      extraVolumes:
+#        - name: host-nginx-logs
+#          hostPath:
+#            path: /var/log/nginx
+#            type: DirectoryOrCreate
+#      extraVolumeMounts:
+#        - name: host-nginx-logs
+#          mountPath: /var/log/nginx
+#          readOnly: true
     lapi:
       resources:
         limits:

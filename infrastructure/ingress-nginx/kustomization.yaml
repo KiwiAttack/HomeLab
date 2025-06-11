@@ -4,4 +4,4 @@ resources:
   - base/namespace.yaml
   - base/nginx-repo.yaml
   - base/helm-release.yaml
-  - base/custom-nginx-config.yaml
+#  - base/custom-nginx-config.yaml

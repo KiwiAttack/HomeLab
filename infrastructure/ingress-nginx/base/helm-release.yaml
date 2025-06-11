@@ -33,17 +33,17 @@ spec:
         real-ip-header: "X-Forwarded-For"
         set-real-ip-from: "0.0.0.0/0"
 
-      extraVolumes:
-        - name: nginx-config
-          configMap:
-            name: custom-nginx-config
-        - name: nginx-logs
-          hostPath:
-            path: /var/log/nginx
-            type: DirectoryOrCreate
+#      extraVolumes:
+#        - name: nginx-config
+#          configMap:
+#            name: custom-nginx-config
+#        - name: nginx-logs
+#          hostPath:
+#            path: /var/log/nginx
+#            type: DirectoryOrCreate
 
-      extraVolumeMounts:
-        - name: nginx-config
-          mountPath: /etc/nginx/conf.d
-        - name: nginx-logs
-          mountPath: /var/log/nginx
+#      extraVolumeMounts:
+#        - name: nginx-config
+#          mountPath: /etc/nginx/conf.d
+#        - name: nginx-logs
+#          mountPath: /var/log/nginx
