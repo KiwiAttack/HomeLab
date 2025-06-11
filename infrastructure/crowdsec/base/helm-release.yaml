@@ -1,0 +1,48 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: crowdsec
+  namespace: flux-system
+spec:
+  interval: 10m
+  targetNamespace: crowdsec
+  releaseName: crowdsec
+  chart:
+    spec:
+      chart: crowdsec
+      version: 0.19.3
+      sourceRef:
+        kind: HelmRepository
+        name: crowdsec
+        namespace: flux-system
+  values:
+    agent:
+      container_runtime: containerd
+      acquisition:
+        - namespace: ingress-nginx
+          podName: ingress-nginx-controller-*
+          program: nginx 
+          # You might need to adjust the path if your NGINX logs are not at the default location for the agent to pick up
+          # Consider also mounting the NGINX log directory if needed, similar to how you've done with custom-nginx-config
+    lapi:
+      resources:
+        limits:
+          memory: 100Mi
+        requests:
+          cpu: 150m
+          memory: 100Mi
+      persistentVolume:
+        data:
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
+          storageClassName: ""
+          existingClaim: ""
+          size: 1Gi
+        config:
+          enabled: true
+          accessModes:
+            - ReadWriteOnce
+          storageClassName: ""
+          existingClaim: "lapi-crowdsec-pvc"
+          size: 1Gi
