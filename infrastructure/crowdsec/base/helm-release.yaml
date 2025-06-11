@@ -17,9 +17,6 @@ spec:
         namespace: flux-system
   values:
     agent:
-      env:
-        - name: COLLECTIONS
-          value: "crowdsecurity/nginx"
       log_level: debug
       acquisition:
         - paths:
