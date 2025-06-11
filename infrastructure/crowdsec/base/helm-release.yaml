@@ -17,12 +17,15 @@ spec:
         namespace: flux-system
   values:
     agent:
-      container_runtime: containerd
+      container_runtime: cri
       log_level: debug
       acquisition:
-        - namespace: ingress-nginx
-          podName: ingress-nginx-controller-*
-          program: nginx
+        - filenames:
+          - /var/log/containers/*-ingress-nginx-controller-*_*_*.log
+          force_inotify: true
+          labels:
+            type: containerd
+            program: nginx
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
