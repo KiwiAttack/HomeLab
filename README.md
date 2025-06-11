@@ -74,6 +74,7 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 * **Persistent Storage**: Data is stored on an NFS share for persistence.
 
 ## Directory Structure
+```bash
 .
 ├── apps/
 │   └── wiki/                   # Wiki.js application manifests
@@ -118,6 +119,7 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 │   ├── nginx-repo.yaml
 │   └── secret-api-key.yaml
 └── kustomization.yaml
+```
 
 ## Deployment
 
