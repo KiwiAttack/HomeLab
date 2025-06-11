@@ -38,8 +38,9 @@ spec:
           configMap:
             name: custom-nginx-config
         - name: nginx-logs
-          persistentVolumeClaim:
-            claimName: nginx-logs-pvc
+          hostPath:
+            path: /var/log/nginx
+            type: DirectoryOrCreate
 
       extraVolumeMounts:
         - name: nginx-config
