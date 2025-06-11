@@ -21,9 +21,25 @@ spec:
       acquisition:
         - namespace: ingress-nginx
           podName: ingress-nginx-controller-*
-          program: nginx 
-          # You might need to adjust the path if your NGINX logs are not at the default location for the agent to pick up
-          # Consider also mounting the NGINX log directory if needed, similar to how you've done with custom-nginx-config
+          program: nginx
+          # If the agent still doesn't pick up logs automatically, you might need to specify exact paths:
+          # paths: ["/var/log/nginx/access.log", "/var/log/nginx/error.log"]
+      # Ensure CrowdSec agent runs on the master node if NGINX is only on master
+      # Add these tolerations if your master node has a 'NoSchedule' taint
+      # (This is common for master nodes, and your NGINX ingress controller already has this)
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+          effect: "NoSchedule"
+      extraVolumes:
+        - name: host-nginx-logs
+          hostPath:
+            path: /var/log/nginx
+            type: DirectoryOrCreate
+      extraVolumeMounts:
+        - name: host-nginx-logs
+          mountPath: /var/log/nginx
+          readOnly: true
     lapi:
       resources:
         limits:
