@@ -22,11 +22,10 @@ spec:
         - namespace: ingress-nginx
           podName: ingress-nginx-controller-*
           program: nginx
-          # If the agent still doesn't pick up logs automatically, you might need to specify exact paths:
-          # paths: ["/var/log/nginx/access.log", "/var/log/nginx/error.log"]
-      # Ensure CrowdSec agent runs on the master node if NGINX is only on master
-      # Add these tolerations if your master node has a 'NoSchedule' taint
-      # (This is common for master nodes, and your NGINX ingress controller already has this)
+          poll_without_inotify: true
+          labels:
+            type: "nginx"
+            log_type: "nginx"
       tolerations:
         - key: "node-role.kubernetes.io/master"
           operator: "Exists"
