@@ -52,7 +52,7 @@ spec:
           env:
             - name: API_URL
               value: "http://192.168.178.200:8080"
-            - name: API_KEY # Mount the API key from the Secret
+            - name: API_KEY
               valueFrom:
                 secretKeyRef:
                   name: crowdsec-nginx-bouncer-api-key
