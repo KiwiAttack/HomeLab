@@ -1,0 +1,32 @@
+---
+# Vaultwarden PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: vaultwarden-nfs-pv
+  namespace: vaultwarden
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  nfs:
+    server: 192.168.178.200
+    path: /srv/k8s-data/vaultwarden
+---
+# Vaultwarden PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vaultwarden-nfs-pvc
+  namespace: vaultwarden
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: ""
