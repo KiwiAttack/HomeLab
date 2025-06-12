@@ -8,4 +8,4 @@ resources:
   - base/ingress.yaml
   - storage/pv-vaultwarden.yaml
   - secret.sops.yaml
-  - secret-smtp.sops.yaml
+ # - secret-smtp.sops.yaml
