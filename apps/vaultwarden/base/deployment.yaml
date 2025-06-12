@@ -34,6 +34,8 @@ spec:
                   key: admin-token
             - name: DOMAIN
               value: "https://vault.kiwilab.dev"
+            - name: URL_BASE
+              value: "https://vault.kiwilab.dev"
             - name: SMTP_HOST
               value: "smtp.gmail.com"
             - name: SMTP_PORT
