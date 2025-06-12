@@ -24,7 +24,7 @@ spec:
             - name: WEBSOCKET_ENABLED
               value: "true"
             - name: SIGNUPS_ALLOWED
-              value: "false"
+              value: "true"
             - name: ADMIN_TOKEN
               valueFrom:
                 secretKeyRef:
