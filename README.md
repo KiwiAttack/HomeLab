@@ -67,7 +67,6 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 * A powerful and extensible Wiki application deployed on Kubernetes.
 * **Database**: Uses PostgreSQL for its backend database.
 * **Persistent Storage**: Data is stored on an NFS share for persistence.
-* **Access**: Exposed via NGINX Ingress with automatic TLS from Let's Encrypt.
 
 ### PostgreSQL (for Wiki.js)
 
@@ -77,10 +76,8 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 ### Vaultwarden
 
 * A light-weight Bitwarden® compatible server, perfect for self-hosting your password manager.
-* **Persistent Storage**: Uses NFS at `/srv/k8s-data/vaultwarden` for data persistence.
+* **Persistent Storage**: Data is stored on an NFS share for persistence.
 * **Email Notifications**: Configured to send emails via Gmail SMTP on port 465 for features like account verification, using an App Password for secure authentication.
-* **Security**: Includes rate-limiting to protect against brute-force attacks and is secured with an Argon2-hashed admin token.
-* **Access**: Exposed via NGINX Ingress with automatic TLS from Let's Encrypt on `https://vault.kiwilab.dev`.
 
 ## Directory Structure
 ```bash
@@ -150,10 +147,6 @@ Flux will then automatically synchronize the cluster with the configurations def
     * **SMTP Settings**: Configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` (via secret), `SMTP_SSL`, `SMTP_STARTTLS`, `SMTP_EXPLICIT_TLS` for email functionality.
     * **Domain**: Set `DOMAIN` and `URL_BASE` to your public URL (e.g., `https://vault.kiwilab.dev`) for correct link generation.
     * **Sign-ups**: Adjust `SIGNUPS_ALLOWED` (`true` to enable, `false` to disable) and `SIGNUPS_VERIFY` (`true` to require email verification, `false` to skip) as needed for user registration. Remember to disable sign-ups after creating initial accounts for security.
-
-## Contributing
-
-Feel free to open issues or pull requests if you have suggestions or improvements for this homelab setup.
 
 ## License
 
