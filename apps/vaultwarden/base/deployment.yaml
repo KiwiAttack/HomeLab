@@ -24,14 +24,20 @@ spec:
             - name: WEBSOCKET_ENABLED
               value: "true"
             - name: SIGNUPS_ALLOWED
-              value: "true"
-            - name: SIGNUPS_VERIFY
               value: "false"
             - name: ADMIN_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: vaultwarden-admin-token
                   key: admin-token
+            - name: ENABLE-RATE-LIMIT
+              value: "true"
+            - name: ENABLE-RATE-LIMIT
+              value: "true"
+            - name: RATE-LIMIT-SECONDS
+              value: "60"
+            - name: RATE-LIMIT-MAX-BURST
+              value: "10"
             - name: DOMAIN
               value: "https://vault.kiwilab.dev"
             - name: URL_BASE
