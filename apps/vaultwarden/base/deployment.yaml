@@ -37,8 +37,6 @@ spec:
               value: "587"
             - name: SMTP_FROM
               value: "server.mehlhorn@gmail.com"
-            - name: SMTP_SSL
-              value: "true"
             - name: SMTP_USERNAME
               value: "server.mehlhorn@gmail.com"
             - name: SMTP_PASSWORD
@@ -46,6 +44,12 @@ spec:
                 secretKeyRef:
                    name: vaultwarden-smtp-secret
                    key: smtp-password
+            - name: SMTP_SSL
+              value: "false"
+            - name: SMTP_STARTTLS
+              value: "true"
+            - name: SMTP_EXPLICIT_TLS
+              value: "true"
           resources:
             requests:
               memory: "128Mi"
