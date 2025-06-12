@@ -48,8 +48,6 @@ spec:
               value: "false"
             - name: SMTP_STARTTLS
               value: "true"
-            - name: SMTP_EXPLICIT_TLS
-              value: "true"
           resources:
             requests:
               memory: "128Mi"
