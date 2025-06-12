@@ -34,7 +34,7 @@ spec:
             - name: SMTP_HOST
               value: "smtp.gmail.com"
             - name: SMTP_PORT
-              value: "587"
+              value: "465"
             - name: SMTP_FROM
               value: "server.mehlhorn@gmail.com"
             - name: SMTP_USERNAME
@@ -45,8 +45,10 @@ spec:
                    name: vaultwarden-smtp-secret
                    key: smtp-password
             - name: SMTP_SSL
-              value: "false"
+              value: "true"
             - name: SMTP_STARTTLS
+              value: "false"
+            - name: SMTP_EXPLICIT_TLS
               value: "true"
           resources:
             requests:
