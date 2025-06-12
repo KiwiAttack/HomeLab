@@ -25,6 +25,8 @@ spec:
               value: "true"
             - name: SIGNUPS_ALLOWED
               value: "true"
+            - name: SIGNUPS_VERIFY
+              value: "false"
             - name: ADMIN_TOKEN
               valueFrom:
                 secretKeyRef:
