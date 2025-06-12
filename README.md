@@ -1,10 +1,10 @@
-# HomeLab: GitOps with k3s, Flux, and a Secure Wiki
+# HomeLab: GitOps with k3s, Flux, and Secure Services
 
-This repository contains my personal homelab setup, managed entirely through GitOps principles. The core of this setup is a Kubernetes cluster running k3s, with application and infrastructure deployments orchestrated by Flux CD. A key feature is a TLS-secured Wiki application, leveraging NGINX Ingress and Cert-Manager for automatic certificate provisioning from Let's Encrypt.
+This repository contains my personal homelab setup, managed entirely through GitOps principles. The core of this setup is a Kubernetes cluster running k3s, with application and infrastructure deployments orchestrated by Flux CD. Key services include a TLS-secured Wiki application and Vaultwarden (a Bitwarden compatible server), leveraging NGINX Ingress and Cert-Manager for automatic certificate provisioning from Let's Encrypt.
 
 ## Table of Contents
 
-- [HomeLab: GitOps with k3s, Flux, and a Secure Wiki](#homelab-gitops-with-k3s-flux-and-a-secure-wiki)
+- [HomeLab: GitOps with k3s, Flux, and Secure Services](#homelab-gitops-with-k3s-flux-and-secure-services)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Cluster Components](#cluster-components)
@@ -16,7 +16,8 @@ This repository contains my personal homelab setup, managed entirely through Git
     - [Secret Management](#secret-management)
   - [Applications](#applications)
     - [Wiki.js](#wikijs)
-    - [PostgreSQL](#postgresql)
+    - [PostgreSQL (for Wiki.js)](#postgresql-for-wikijs)
+    - [Vaultwarden](#vaultwarden)
   - [Directory Structure](#directory-structure)
   - [Deployment](#deployment)
   - [Configuration & Customization](#configuration--customization)
@@ -43,7 +44,7 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 
 ### Ingress Controller
 
-* **NGINX Ingress Controller**: Manages external access to services within the cluster, providing HTTP/S routing and advanced traffic management features. It is configured with custom logging and integrated with Crowdsec for basic WAF capabilities.
+* **NGINX Ingress Controller**: Manages external access to services within the cluster, providing HTTP/S routing and advanced traffic management features. It is configured with custom logging and integrated with Crowdsec for basic WAF capabilities using a Lua bouncer plugin.
 
 ### Certificate Management
 
@@ -53,11 +54,11 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 
 ### Persistent Storage
 
-* **NFS (Network File System)**: Used for providing persistent storage to stateful applications like Wiki.js and PostgreSQL. The NFS server is located at `192.168.178.200`.
+* **NFS (Network File System)**: Used for providing persistent storage to stateful applications like Wiki.js and Vaultwarden. The NFS server is located at `192.168.178.200`.
 
 ### Secret Management
 
-* **Mozilla SOPS**: Secrets are encrypted using SOPS and stored in the Git repository. Flux's Kustomize controller is configured to decrypt these secrets before applying them to the cluster, ensuring sensitive information remains encrypted at rest and in transit.
+* **Mozilla SOPS**: Sensitive data (like database passwords and API keys) are encrypted using SOPS and stored in the Git repository. Flux's Kustomize controller is configured to decrypt these secrets before applying them to the cluster, ensuring sensitive information remains encrypted at rest and in transit.
 
 ## Applications
 
@@ -68,28 +69,37 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 * **Persistent Storage**: Data is stored on an NFS share for persistence.
 * **Access**: Exposed via NGINX Ingress with automatic TLS from Let's Encrypt.
 
-### PostgreSQL
+### PostgreSQL (for Wiki.js)
 
 * A robust, open-source relational database used as the backend for Wiki.js.
 * **Persistent Storage**: Data is stored on an NFS share for persistence.
+
+### Vaultwarden
+
+* A light-weight Bitwarden® compatible server, perfect for self-hosting your password manager.
+* **Persistent Storage**: Uses NFS at `/srv/k8s-data/vaultwarden` for data persistence.
+* **Email Notifications**: Configured to send emails via Gmail SMTP on port 465 for features like account verification, using an App Password for secure authentication.
+* **Security**: Includes rate-limiting to protect against brute-force attacks and is secured with an Argon2-hashed admin token.
+* **Access**: Exposed via NGINX Ingress with automatic TLS from Let's Encrypt on `https://vault.kiwilab.dev`.
 
 ## Directory Structure
 ```bash
 .
 ├── apps/
-│   └── wiki/                   # Wiki.js application manifests
+│   ├── wiki/                   # Wiki.js application manifests
+│   │   ├── base/
+│   │   ├── postgres/
+│   │   ├── storage/
+│   │   └── kustomization.yaml
+│   └── vaultwarden/            # Vaultwarden application manifests
 │       ├── base/
 │       │   ├── deployment.yaml
 │       │   ├── ingress.yaml
 │       │   ├── namespace.yaml
 │       │   └── service.yaml
-│       ├── postgres/           # PostgreSQL manifests for Wiki.js
-│       │   ├── deployment.yaml
-│       │   ├── secret.sops.yaml
-│       │   └── service.yaml
-│       ├── storage/            # Persistent Volume/Claim definitions
-│       │   ├── pv-postgres.yaml
-│       │   └── pv-wiki.yaml
+│       ├── storage/
+│       │   └── pv-vaultwarden.yaml
+│       ├── secret.sops.yaml    # Encrypted admin token
 │       └── kustomization.yaml
 ├── clusters/
 │   └── heimdall/               # Cluster-specific configurations
@@ -102,22 +112,12 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 └── infrastructure/
 ├── cert-issuer/            # Cert-Manager ClusterIssuers
 │   ├── base/
-│   │   ├── cert-issuer.yaml
-│   │   └── cert-staging-issuer.yaml
 │   └── kustomization.yaml
 ├── cert-manager/           # Cert-Manager HelmRelease and repository
 │   ├── base/
-│   │   ├── helm-release.yaml
-│   │   ├── jetstack-repo.yaml
-│   │   └── namespace.yaml
 │   └── kustomization.yaml
 └── ingress-nginx/          # NGINX Ingress Controller
 ├── base/
-│   ├── custom-nginx-config.yaml
-│   ├── helm-release.yaml
-│   ├── namespace.yaml
-│   ├── nginx-repo.yaml
-│   └── secret-api-key.yaml
 └── kustomization.yaml
 ```
 
@@ -130,13 +130,10 @@ To deploy this homelab setup, you would typically:
     ```bash
     flux bootstrap github \
       --owner=<your-github-username> \
-      --repository=HomeLab \
+      --repository=<your-repo-name> \
       --branch=main \
-      --path=./clusters/heimdall \
-      --personal=true \
-      --token-auth \
-      --read-write-key \
-      --passphrase=<your-sops-age-key-passphrase>
+      --path=./clusters/<your-cluster-name> \
+      --personal \
     ```
     *Note: Replace `<your-github-username>` and `<your-sops-age-key-passphrase>` with your actual values.*
 
@@ -145,9 +142,14 @@ Flux will then automatically synchronize the cluster with the configurations def
 ## Configuration & Customization
 
 * **Secrets**: All sensitive data (like database passwords and API keys) are managed using SOPS. To decrypt and encrypt secrets, ensure you have the correct SOPS age key configured.
-* **NFS Paths**: Adjust the `path` and `server` values in `apps/wiki/storage/pv-*.yaml` to match your NFS server configuration.
-* **Ingress Hostnames**: Update the `host` in `apps/wiki/base/ingress.yaml` to your desired domain for the Wiki.js application.
+* **NFS Paths**: Adjust the `path` and `server` values in `apps/*/storage/pv-*.yaml` to match your NFS server configuration.
+* **Ingress Hostnames**: Update the `host` in `apps/*/base/ingress.yaml` files to your desired domains for Wiki.js, Vaultwarden, etc.
 * **Cert-Manager Email**: Change the `email` in `infrastructure/cert-issuer/base/cert-issuer.yaml` and `cert-staging-issuer.yaml` to your email address for Let's Encrypt notifications.
+* **Vaultwarden Specifics**:
+    * **Admin Token**: Generate a secure Argon2 hash for your admin token using `vaultwarden hash <your-token>` inside the Vaultwarden container and update `apps/vaultwarden/secret.sops.yaml`.
+    * **SMTP Settings**: Configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` (via secret), `SMTP_SSL`, `SMTP_STARTTLS`, `SMTP_EXPLICIT_TLS` for email functionality.
+    * **Domain**: Set `DOMAIN` and `URL_BASE` to your public URL (e.g., `https://vault.kiwilab.dev`) for correct link generation.
+    * **Sign-ups**: Adjust `SIGNUPS_ALLOWED` (`true` to enable, `false` to disable) and `SIGNUPS_VERIFY` (`true` to require email verification, `false` to skip) as needed for user registration. Remember to disable sign-ups after creating initial accounts for security.
 
 ## Contributing
 
