@@ -30,7 +30,8 @@ spec:
                 secretKeyRef:
                   name: vaultwarden-admin-token
                   key: admin-token
-            # Add other environment variables as needed, e.g., for SMTP, Push notifications etc.
+            - name: DOMAIN
+              value: "https://vault.kiwilab.dev"
             - name: SMTP_HOST
               value: "smtp.gmail.com"
             - name: SMTP_PORT
