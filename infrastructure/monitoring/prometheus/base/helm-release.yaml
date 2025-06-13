@@ -36,14 +36,11 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              accessModes: ["ReadWriteOnce"]
               storageClassName: ""
+              accessModes: ["ReadWriteOnce"]
               resources:
                 requests:
                   storage: 20Gi
-              dataSource:
-                name: prometheus-nfs-pvc
-                kind: PersistentVolumeClaim
     alertmanager:
       enabled: true
       resources:

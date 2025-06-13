@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - base/prometheus-repo.yaml
   - base/helm-release.yaml
-  - storage/pv-prometheus.yaml
