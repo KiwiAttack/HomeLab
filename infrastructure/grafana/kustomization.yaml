@@ -4,6 +4,5 @@ resources:
   - base/namespace.yaml
   - base/grafana-repo.yaml
   - base/helm-release.yaml
-  - secret.sops.yaml
   - base/ingress.yaml
   - storage/pv-grafana.yaml

@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  targetNamespace: grafana
+  targetNamespace: monitoring
   releaseName: grafana
   chart:
     spec:
@@ -16,10 +16,6 @@ spec:
         name: grafana
         namespace: flux-system
   values:
-    adminUser: admin
-    adminPasswordFromSecret:
-      name: grafana-admin-secret
-      key: GRAFANA-ADMIN
     installCRDs: true
     persistence:
       enabled: true
