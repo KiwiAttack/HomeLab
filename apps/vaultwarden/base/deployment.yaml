@@ -32,8 +32,6 @@ spec:
                   key: admin-token
             - name: ENABLE-RATE-LIMIT
               value: "true"
-            - name: ENABLE-RATE-LIMIT
-              value: "true"
             - name: RATE-LIMIT-SECONDS
               value: "60"
             - name: RATE-LIMIT-MAX-BURST
