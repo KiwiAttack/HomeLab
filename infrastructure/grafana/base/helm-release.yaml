@@ -16,6 +16,7 @@ spec:
         name: grafana
         namespace: flux-system
   values:
+    adminUser: admin
     adminPasswordFromSecret:
       name: grafana-admin-secret
       key: GRAFANA-ADMIN
