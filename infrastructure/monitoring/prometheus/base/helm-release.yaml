@@ -34,7 +34,16 @@ spec:
             cpu: 1000m
             memory: 1Gi
         storageSpec:
-          existingClaim: prometheus-nfs-pvc
+          volumeClaimTemplate:
+            spec:
+              accessModes: ["ReadWriteOnce"]
+              storageClassName: ""
+              resources:
+                requests:
+                  storage: 20Gi
+              dataSource:
+                name: prometheus-nfs-pvc
+                kind: PersistentVolumeClaim
     alertmanager:
       enabled: true
       resources:
