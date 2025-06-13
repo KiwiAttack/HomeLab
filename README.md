@@ -14,6 +14,7 @@ This repository contains my personal homelab setup, managed entirely through Git
     - [Certificate Management](#certificate-management)
     - [Persistent Storage](#persistent-storage)
     - [Secret Management](#secret-management)
+    - [Monitoring](#monitoring)
   - [Applications](#applications)
     - [Wiki.js](#wikijs)
     - [PostgreSQL (for Wiki.js)](#postgresql-for-wikijs)
@@ -59,6 +60,11 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 ### Secret Management
 
 * **Mozilla SOPS**: Sensitive data (like database passwords and API keys) are encrypted using SOPS and stored in the Git repository. Flux's Kustomize controller is configured to decrypt these secrets before applying them to the cluster, ensuring sensitive information remains encrypted at rest and in transit.
+
+### Monitoring
+
+* **Prometheus**: An open-source monitoring system with a dimensional data model, flexible query language (PromQL), and powerful alerting capabilities. It collects metrics from the Kubernetes cluster and deployed applications.
+* **Grafana**: An open-source platform for monitoring and observability. It allows you to query, visualize, alert on, and explore your metrics through customizable dashboards, often used in conjunction with Prometheus. You can access Grafana at `grafana.kiwilab.dev`. Persistent storage for Grafana is configured via NFS using `grafana-nfs-pvc`.
 
 ## Applications
 
@@ -113,9 +119,17 @@ This homelab aims to demonstrate and utilize modern cloud-native practices, spec
 ├── cert-manager/           # Cert-Manager HelmRelease and repository
 │   ├── base/
 │   └── kustomization.yaml
-└── ingress-nginx/          # NGINX Ingress Controller
-├── base/
-└── kustomization.yaml
+├── ingress-nginx/          # NGINX Ingress Controller
+│   ├── base/
+│   └── kustomization.yaml
+└── monitoring/             # Monitoring stack with Prometheus and Grafana
+    ├── grafana/
+    │   ├── base/
+    │   ├── storage/
+    │   └── kustomization.yaml
+    └── prometheus/
+        ├── base/
+        └── kustomization.yaml
 ```
 
 ## Deployment
