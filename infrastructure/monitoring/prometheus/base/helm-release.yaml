@@ -41,6 +41,10 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
+        additionalScrapeConfigs: |
+          - job_name: 'crowdsec'
+            static_configs:
+              - targets: ['192.168.178.200:6060']
     alertmanager:
       enabled: true
       resources:
