@@ -14,4 +14,5 @@ spec:
     - speedtest
   endpoints:
   - port: http
+    path: /metrics
     interval: 4h
