@@ -5,4 +5,4 @@ resources:
   - base/deployment.yaml
   - base/service.yaml
   - base/ingress.yaml
-  - storage/pv-speedtest-exporter.yaml
+  - storage/pv-speedtest.yaml

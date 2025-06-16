@@ -88,7 +88,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: speedtest
+  name: speedtest-tracker
   namespace: flux-system
 spec:
   interval: 10m
