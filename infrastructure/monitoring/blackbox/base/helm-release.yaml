@@ -1,0 +1,39 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: blackbox-exporter
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: prometheus-community/prometheus-blackbox-exporter
+      version: 8.15.2
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+  values:
+    replicaCount: 1
+    config:
+      modules:
+        http_2xx:
+          prober: http
+          timeout: 5s
+          http:
+            valid_http_versions: ["HTTP/1.1", "HTTP/2"]
+            method: GET
+        tcp_connect:
+          prober: tcp
+          timeout: 5s
+    service:
+      type: ClusterIP
+      port: 9115
+      targetPort: 9115
+      labels:
+        app: blackbox-exporter
+    serviceMonitor:
+      enabled: true
+      interval: 30s
+      additionalLabels:
+        release: prometheus
