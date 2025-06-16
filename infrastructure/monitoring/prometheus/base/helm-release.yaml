@@ -52,6 +52,7 @@ spec:
             static_configs:
               - targets:
                 - https://www.google.com
+                - http://www.google.com
             relabel_configs:
               - source_labels: [__address__]
                 target_label: __param_target
