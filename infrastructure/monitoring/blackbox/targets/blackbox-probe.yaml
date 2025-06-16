@@ -7,7 +7,6 @@ metadata:
   labels:
     release: prometheus
 spec:
-  jobLabel: blackbox
   endpoints:
     - interval: 30s
       port: http
@@ -21,9 +20,9 @@ spec:
           targetLabel: instance
         - targetLabel: __address__
           replacement: blackbox-exporter-prometheus-blackbox-exporter.blackbox-exporter.svc.cluster.local:9115
-  namespaceSelector:
-    matchNames:
-      - monitoring
   selector:
     matchLabels:
       blackbox: probe-targets
+  namespaceSelector:
+    matchNames:
+      - monitoring
