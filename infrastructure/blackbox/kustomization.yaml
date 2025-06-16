@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - base/namespace.yaml
   - base/helm-repo.yaml
-  - base/release.yaml
+  - base/helm-release.yaml
   - targets/blackbox-probe.yaml
