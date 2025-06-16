@@ -18,7 +18,7 @@ spec:
         - name: postgres
           image: postgres:15.1
           env:
-            - name: DB_PASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgres-speedtest-password
