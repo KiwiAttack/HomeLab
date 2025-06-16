@@ -36,6 +36,8 @@ spec:
             secretKeyRef:
               name: speedtest-env
               key: APP_KEY
+        - name: APP_DEBUG
+          value: "true"
         volumeMounts:
         - name: config
           mountPath: /config
