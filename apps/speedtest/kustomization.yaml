@@ -5,6 +5,7 @@ resources:
   - base/deployment.yaml
   - base/service.yaml
   - base/ingress.yaml
+  - base/servicemonitor.yaml
   - storage/speedtest-tracker-pvc.yaml
   - secret.sops.yaml
   - admin-pw.sops.yaml
