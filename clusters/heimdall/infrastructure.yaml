@@ -1,3 +1,4 @@
+# Ingress-Nginx
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -16,6 +17,7 @@ spec:
     secretRef:
       name: sops-age
 ---
+# Cert-Manager
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -32,6 +34,7 @@ spec:
   wait: true
   timeout: 3m
 ---
+# Cert-Issuer
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -53,6 +56,7 @@ spec:
     secretRef:
       name: sops-age
 ---
+# Grafana
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -71,6 +75,7 @@ spec:
     secretRef:
       name: sops-age
 ---
+# Prometheus
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -79,6 +84,21 @@ metadata:
 spec:
   interval: 10m
   path: ./infrastructure/monitoring/prometheus
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+---
+# Blackbox
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: blackbox
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/blackbox
   prune: true
   sourceRef:
     kind: GitRepository

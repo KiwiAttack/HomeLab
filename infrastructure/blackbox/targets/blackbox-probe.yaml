@@ -1,0 +1,29 @@
+# infrastructure/blackbox/targets/blackbox-probe.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: blackbox-targets
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  jobLabel: blackbox
+  endpoints:
+    - interval: 30s
+      port: http
+      path: /probe
+      params:
+        module: [http_2xx]  # or tcp_connect
+      relabelings:
+        - sourceLabels: [__address__]
+          targetLabel: __param_target
+        - sourceLabels: [__param_target]
+          targetLabel: instance
+        - targetLabel: __address__
+          replacement: blackbox-exporter.blackbox-exporter.svc.cluster.local:9115
+  namespaceSelector:
+    matchNames:
+      - monitoring
+  selector:
+    matchLabels:
+      blackbox: probe-targets
