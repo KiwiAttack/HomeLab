@@ -1,0 +1,43 @@
+# postgres-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: speedtest-tracker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15.1
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-speedtest-password
+                  key: DB_PASSWORD
+            - name: POSTGRES_DB
+              value: speedtest_tracker
+            - name: POSTGRES_USER
+              value: speedy
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres
+      volumes:
+        - name: postgres
+          persistentVolumeClaim:
+            claimName: postgres

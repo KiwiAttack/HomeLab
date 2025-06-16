@@ -24,11 +24,31 @@ spec:
         - name: PGID
           value: "1000"
         - name: TZ
-          value: "Europe/Berlin"
+          value: Europe/Berlin
+        - name: APP_URL
+          value: https://speedtest.kiwilab.dev
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: speedtest-env
+              key: APP_KEY
         - name: DB_CONNECTION
-          value: "sqlite"
+          value: pgsql
+        - name: DB_HOST
+          value: postgres
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_DATABASE
+          value: speedtest_tracker
+        - name: DB_USERNAME
+          value: speedy
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-speedtest-password
+              key: DB_PASSWORD
         - name: SPEEDTEST_SCHEDULE
-          value: "0 */4 * * *" # test every 4h
+          value: "0 */4 * * *"
         - name: APP_URL
           value: "https://speedtest.kiwilab.dev"
         - name: APP_KEY
