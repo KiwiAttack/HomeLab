@@ -4,4 +4,5 @@ resources:
   - base/namespace.yaml
   - base/helm-repo.yaml
   - base/helm-release.yaml
+  - base/service.yaml
   - targets/blackbox-probe.yaml
