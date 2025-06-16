@@ -36,8 +36,6 @@ spec:
             secretKeyRef:
               name: speedtest-env
               key: APP_KEY
-        - name: SPEEDTEST_SCHEDULE
-          value: "0 */4 * * *"
         volumeMounts:
         - name: config
           mountPath: /config
