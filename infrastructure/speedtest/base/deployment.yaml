@@ -49,13 +49,6 @@ spec:
               key: DB_PASSWORD
         - name: SPEEDTEST_SCHEDULE
           value: "0 */4 * * *"
-        - name: APP_URL
-          value: "https://speedtest.kiwilab.dev"
-        - name: APP_KEY
-          valueFrom:
-            secretKeyRef:
-              name: speedtest-env
-              key: APP_KEY
         volumeMounts:
         - name: config
           mountPath: /config
