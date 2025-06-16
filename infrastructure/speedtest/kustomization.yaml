@@ -7,3 +7,4 @@ resources:
   - base/ingress.yaml
   - storage/speedtest-tracker-pvc.yaml
   - secret.sops.yaml
+  - admin-pw.sops.yaml
