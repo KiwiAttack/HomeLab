@@ -13,14 +13,14 @@ spec:
       port: http
       path: /probe
       params:
-        module: [http_2xx]  # or tcp_connect
+        module: [http_2xx]
       relabelings:
         - sourceLabels: [__address__]
           targetLabel: __param_target
         - sourceLabels: [__param_target]
           targetLabel: instance
         - targetLabel: __address__
-          replacement: blackbox-exporter.blackbox-exporter.svc.cluster.local:9115
+          replacement: blackbox-exporter-prometheus-blackbox-exporter.blackbox-exporter.svc.cluster.local:9115
   namespaceSelector:
     matchNames:
       - monitoring
