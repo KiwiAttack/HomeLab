@@ -25,6 +25,8 @@ spec:
           value: "1000"
         - name: TZ
           value: Europe/Berlin
+        - name: APP_DEBUG
+          value: "true"
         - name: APP_URL
           value: https://speedtest.kiwilab.dev
         - name: APP_KEY
