@@ -37,7 +37,7 @@ spec:
               name: speedtest-env
               key: APP_KEY
         - name: ADMIN_EMAIL
-          vaule: server.mehlhorn@gmail.com
+          value: server.mehlhorn@gmail.com
         - name: ADMIN_PASSWORD
           valueFrom:
             secretKeyRef:
