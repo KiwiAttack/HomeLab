@@ -1,4 +1,3 @@
-# infrastructure/blackbox/targets/blackbox-probe.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
