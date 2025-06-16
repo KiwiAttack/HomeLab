@@ -5,9 +5,5 @@ resources:
   - base/deployment.yaml
   - base/service.yaml
   - base/ingress.yaml
-  - postgres/deployment.yaml
-  - postgres/service.yaml
   - storage/speedtest-tracker-pvc.yaml
-  - storage/speedtest-postgres-pvc.yaml
   - secret.sops.yaml
-  - secret-db-password.sops.yaml
