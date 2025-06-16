@@ -1,3 +1,4 @@
+# Wiki
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -17,6 +18,7 @@ spec:
     secretRef:
       name: sops-age
 ---
+# Vaultwarden
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -31,6 +33,25 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: vaultwarden
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+# Speedtest
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: speedtest-tracker
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/speedtest
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
   decryption:
     provider: sops
     secretRef:
