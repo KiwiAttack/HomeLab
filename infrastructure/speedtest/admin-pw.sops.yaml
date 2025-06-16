@@ -5,7 +5,7 @@ metadata:
     namespace: speedtest-tracker
 type: Opaque
 stringData:
-    ADMIN_PASSWORD: ENC[AES256_GCM,data:+LxQJE+ebhTGwqk=,iv:h0bmCRZl6KoIf063/MHNwDThh0fWRycQ+vPZ6NsE+EI=,tag:WG2acEWWyi7XLK0K+ByrxQ==,type:str]
+    PASSWORD: ENC[AES256_GCM,data:+LxQJE+ebhTGwqk=,iv:h0bmCRZl6KoIf063/MHNwDThh0fWRycQ+vPZ6NsE+EI=,tag:WG2acEWWyi7XLK0K+ByrxQ==,type:str]
 sops:
     age:
         - recipient: age17ts7pfxmpkv4xcr37dr3r2929vn0k8aaht8h94eexvqkkuv3nd6sp0l3y6

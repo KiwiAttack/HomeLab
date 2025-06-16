@@ -42,7 +42,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: speedtest-admin-pw
-              key: ADMIN_PASSWORD
+              key: PASSWORD
         - name: APP_DEBUG
           value: "true"
         volumeMounts:
