@@ -10,10 +10,10 @@ spec:
   jobLabel: blackbox
   endpoints:
     - interval: 30s
-      port: http
+      port: dummy
       path: /probe
       params:
-        module: [http_2xx]
+        module: [icmp]
       relabelings:
         - sourceLabels: [__address__]
           targetLabel: __param_target

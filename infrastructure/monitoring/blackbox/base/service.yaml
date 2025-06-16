@@ -8,7 +8,7 @@ metadata:
 spec:
   clusterIP: None
   ports:
-    - name: http
+    - name: dummy
       port: 80
 ---
 apiVersion: v1
