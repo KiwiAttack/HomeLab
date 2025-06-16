@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest-tracker
+  namespace: speedtest-tracker
+  labels:
+    app: speedtest-tracker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest-tracker
+  template:
+    metadata:
+      labels:
+        app: speedtest-tracker
+    spec:
+      containers:
+      - name: speedtest-tracker
+        image: lscr.io/linuxserver/speedtest-tracker:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Europe/Berlin"
+        - name: DB_CONNECTION
+          value: "sqlite"
+        - name: SPEEDTEST_SCHEDULE
+          value: "0 */4 * * *" # test every 4h
+        - name: APP_URL
+          value: "https://speedtest.kiwilab.dev"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: speedtest-tracker-pvc
