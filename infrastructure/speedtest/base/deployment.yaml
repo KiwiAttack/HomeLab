@@ -36,6 +36,13 @@ spec:
             secretKeyRef:
               name: speedtest-env
               key: APP_KEY
+        - name: ADMIN_EMAIL
+          vaule: server.mehlhorn@gmail.com
+        - name: ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: speedtest-admin-pw
+              key: ADMIN_PASSWORD
         - name: APP_DEBUG
           value: "true"
         volumeMounts:
