@@ -8,8 +8,10 @@ validate-yamls:
     - apt-get update && apt-get install -y curl gnupg
     - curl -Lo /usr/local/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64
     - chmod +x /usr/local/bin/kustomize
+    - apt-get install -y yamllint
   script:
-    - kustomize build clusters/heimdall > /dev/null  # Validate cluster manifest build
+    - find . -name "*.yaml" -o -name "*.sops.yaml" | xargs yamllint
+    - kustomize build clusters/heimdall > /dev/null
   only:
     - main
     - merge_requests
