@@ -6,6 +6,6 @@ resources:
   - base/deployment.yaml
   - base/service.yaml
   - base/ingress.yaml
-  - secrets/storage/pv-vaultwarden.yaml
+  - storage/pv-vaultwarden.yaml
   - secrets/secret.sops.yaml
   - secrets/secret-smtp.sops.yaml
