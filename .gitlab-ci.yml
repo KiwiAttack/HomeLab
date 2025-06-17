@@ -1,0 +1,15 @@
+stages:
+  - validate
+
+validate-yamls:
+  image: bitnami/kubectl:latest
+  stage: validate
+  before_script:
+    - apt-get update && apt-get install -y curl gnupg
+    - curl -Lo /usr/local/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/latest/download/kustomize_linux_amd64
+    - chmod +x /usr/local/bin/kustomize
+  script:
+    - kustomize build clusters/heimdall > /dev/null  # Validate cluster manifest build
+  only:
+    - main
+    - merge_requests
