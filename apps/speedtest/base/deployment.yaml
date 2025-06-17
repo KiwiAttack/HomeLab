@@ -48,6 +48,8 @@ spec:
               key: PASSWORD
         - name: APP_DEBUG
           value: "false"
+        - name: SPEEDTEST_SERVERS
+          value: "67618,63237,35154"
         volumeMounts:
         - name: config
           mountPath: /config
