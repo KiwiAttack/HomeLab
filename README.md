@@ -102,3 +102,6 @@ script:
   - find . -name "*.yaml" | xargs yamllint
   - kustomize build clusters/heimdall > /dev/null
 ```
+
+## License
+This project is licensed under the MIT License. See LICENSE for details.
