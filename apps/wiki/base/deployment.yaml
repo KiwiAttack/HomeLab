@@ -36,6 +36,18 @@ spec:
                   key: POSTGRES_PASSWORD
             - name: DB_NAME
               value: "wikidb"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
           resources:
             requests:
               memory: "256Mi"

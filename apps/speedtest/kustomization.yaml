@@ -8,3 +8,4 @@ resources:
   - storage/speedtest-tracker-pvc.yaml
   - secret.sops.yaml
   - admin-pw.sops.yaml
+  - email.sops.yaml

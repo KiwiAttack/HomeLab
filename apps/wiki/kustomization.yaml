@@ -11,3 +11,4 @@ resources:
   - base/service.yaml
   - base/ingress.yaml
   - secret.sops.yaml
+  - email.sops.yaml
