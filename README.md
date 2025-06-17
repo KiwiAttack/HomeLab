@@ -74,11 +74,19 @@ flux bootstrap github \
 ```mermaid
 graph TD
   GitHub[GitHub Repo] -->|Flux Sync| Cluster[k3s Cluster]
-  Cluster -->|Ingress| NGINX[Ingress-NGINX]
-  Cluster -->|Service| Vaultwarden
-  Cluster -->|Service| Wiki
-  Cluster -->|Service| Speedtest
-  Cluster -->|PVC| NFS[NFS Storage]
+  Cluster -->|Applies Manifests| Flux[FluxCD Controller]
+
+  subgraph Internal Services
+    NGINX[Ingress-NGINX] --> Vaultwarden
+    NGINX --> Wiki
+    NGINX --> Speedtest
+    Vaultwarden --> NFS[(NFS PVC)]
+    Wiki --> NFS
+    Speedtest --> NFS
+  end
+
+  Cluster -->|Manages| NGINX
+
 ```
 
 ## CI/CD
