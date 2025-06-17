@@ -2,29 +2,29 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-staging
+    name: letsencrypt-staging
 spec:
-  acme:
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: ENC[AES256_GCM,data:GALpPrhpEJlItv3f0+uyAWfdNF0w7CvFBA==,iv:7dznDMHgkRVd3q6jW+VXoyTbIcw5OwYc2gUbmlcI7eo=,tag:wX6KQYH8/O7jVNtkhMQjAw==,type:str]
-    privateKeySecretRef:
-      name: letsencrypt-staging-account-key
-    solvers:
-    - http01:
-        ingress:
-          class: nginx
+    acme:
+        server: https://acme-staging-v02.api.letsencrypt.org/directory
+        email: server.mehlhorn@gmail.com
+        privateKeySecretRef:
+            name: letsencrypt-staging-account-key
+        solvers:
+            - http01:
+                ingress:
+                    class: nginx
 sops:
     age:
         - recipient: age17ts7pfxmpkv4xcr37dr3r2929vn0k8aaht8h94eexvqkkuv3nd6sp0l3y6
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5VFNEVzhZbUZXc0FNaWpw
-            Q0x0VWQ1cnhUZktpdzZleFpLSlhrSHc3bW5jCnBLM1lDanY1eUFYRnBOQ2UvcHBI
-            UFBxeHo2b2RybWI1VHVOdmwxdFFhN1UKLS0tIDlHaVpGemdMZTBRdkRaaUtMK21Z
-            ZDVNeWFBZytiaEZ6bzRNRDFmK0J1S0kKHF5Alrb2/Q/cvDSCgevp4GcWRG42WB5H
-            RI0yoQ4RjhHKQUakfX95ChGWkOCWXGKrxVyn1CSw2vPMAJyu+6a35A==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA4VWR4N2UzNXpmWjBCNjdq
+            UDZuSTRPYmNCcHJvMGpPM05UeGNmU05PUmpRCmViUHE1TFA5SU9yM2ZxaDVqSlEr
+            NURIdHBaRktqMnV5SWo1KzdweTkzT2sKLS0tIGt4eFYzc1EyT0wwekJZNTAxdk8v
+            RlFBZTU5VGVKeFZDeUxINkVJNm5jNUkK85S+TiRfgZp0LR+YieA5GLiRpQvEUb78
+            /CVlBGAGP07cLmw7iETXzl9uEQ/LrMQDWRQYVvGLn7LbrU6UfY7KGA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-06-17T16:16:04Z"
-    mac: ENC[AES256_GCM,data:R3RpeGADcnGd/oMuIMPxcjxAcLG7RPY+3z1Ah9kxyCRF56o3SC3Pr1jT3e2gEwy2tO1WKhllBcr6NLgwjGWlpBM1+WZq6WPJYXMdReM8lE6ixrmqTn7GD1MfCH+PYQO1M5OU1FMgU7yxAYsj/leyhABzE/BDaAaDsp2YxrNfX0c=,iv:FBQlS2/jGFh1zryaMwv9kYuCep9+EtAQKpPIRtieqzU=,tag:jHcHuPjKY2hCuFU2B5Vx6A==,type:str]
-    encrypted_regex: ^(data|stringData|email)$
+    lastmodified: "2025-06-17T16:39:56Z"
+    mac: ENC[AES256_GCM,data:duPF0z2EYPnMd3/9urq7OcDYr727BV2wM0FHpezRtqihydfTsjD3auQ07zGGj2gqMp3qyiuL75e/RfSnJX5Esg6eE7uYcxy59cd2WQaNV665pSN3jXkRagUGJchADK4PH1cGGbz5eaLxRSPrjrGE7f8X666GHpNbMjP5hIfqcR8=,iv:olefNXc5PM6qqwFqpSy3BmrrQBKp9gU4IF69jqtwjDY=,tag:PZNxr9jcN7ECtJhhwvzQWw==,type:str]
+    encrypted_regex: ^(data|stringData)$
     version: 3.10.2
