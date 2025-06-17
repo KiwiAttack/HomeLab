@@ -6,14 +6,16 @@ Welcome to my Homelab GitOps repository! This project defines a self-hosted infr
 
 ## Core Technologies
 
-- **Kubernetes (k3s)** – Lightweight Kubernetes distribution for edge computing
-- **FluxCD** – GitOps controller to manage Kubernetes state from this repo
-- **Kustomize** – Kubernetes-native configuration management
-- **SOPS + Age** – Encrypted Kubernetes Secrets with Git-safe commits
-- **Traefik / Ingress-NGINX** – Ingress controllers with TLS termination
-- **cert-manager** – Automated certificate management using Let's Encrypt
-- **Persistent Storage** – Backed by local NFS or ZFS with PVCs
-- **CrowdSec** – Security automation and protection (under active deployment)
+- [**Kubernetes (k3s)**](https://github.com/k3s-io/k3s) – Lightweight Kubernetes distribution for edge computing  
+- [**FluxCD**](https://github.com/fluxcd/flux2) – GitOps controller to manage Kubernetes state from this repo  
+- [**Kustomize**](https://github.com/kubernetes-sigs/kustomize) – Kubernetes-native configuration management  
+- [**SOPS**](https://github.com/getsops/sops) + [**Age**](https://github.com/FiloSottile/age) – Encrypted Kubernetes Secrets with Git-safe commits  
+- [**Traefik**](https://github.com/traefik/traefik) / [**Ingress-NGINX**](https://github.com/kubernetes/ingress-nginx) – Ingress controllers with TLS termination  
+- [**cert-manager**](https://github.com/cert-manager/cert-manager) – Automated certificate management using Let's Encrypt  
+- [**Prometheus**](https://github.com/prometheus/prometheus) – Time-series monitoring and alerting  
+- [**Grafana**](https://github.com/grafana/grafana) – Dashboard visualization and metrics frontend  
+- **Persistent Storage** – Backed by local NFS or ZFS with PVCs  
+- [**CrowdSec**](https://github.com/crowdsecurity/crowdsec) – Security automation and protection (under active deployment)  
 
 ---
 
@@ -36,7 +38,7 @@ Welcome to my Homelab GitOps repository! This project defines a self-hosted infr
 ```
 
 ## Secrets Management
-All sensitive credentials are managed with [SOPS](https://github.com/getsops/sops) and [Age](https://github.com/FiloSottile/age). Encrypted files are committed to Git and decrypted at runtime in-cluster via Flux + KSOPS.
+All sensitive credentials are managed with SOPS and Age. Encrypted files are committed to Git and decrypted at runtime in-cluster via Flux + KSOPS.
 
 Example of encrypting a secret:
 
@@ -64,9 +66,9 @@ flux bootstrap github \
 
 ## Monitoring and Observability
 
-- [Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) to probe endpoints like external IPs, DNS, or self-hosted services.
-- [Prometheus](https://github.com/prometheus/prometheus) to track metrics.
-- Alerts and dashboards are set up using Alertmanager and [Grafana](https://github.com/grafana/grafana) for visual dashboards.
+- Blackbox Exporter to probe endpoints like external IPs, DNS, or self-hosted services.
+- Prometheus to track metrics.
+- Alerts and dashboards are set up using Alertmanager and Grafana for visual dashboards.
 
 ## Network Layout (High-Level)
 ```mermaid
