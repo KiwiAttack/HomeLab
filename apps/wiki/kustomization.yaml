@@ -10,4 +10,4 @@ resources:
   - base/deployment.yaml
   - base/service.yaml
   - base/ingress.yaml
-  - secret.sops.yaml
+  - secrets/secret.sops.yaml
