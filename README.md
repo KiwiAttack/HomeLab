@@ -10,7 +10,7 @@ Welcome to my Homelab GitOps repository! This project defines a self-hosted infr
 - [**FluxCD**](https://github.com/fluxcd/flux2) – GitOps controller to manage Kubernetes state from this repo  
 - [**Kustomize**](https://github.com/kubernetes-sigs/kustomize) – Kubernetes-native configuration management  
 - [**SOPS**](https://github.com/getsops/sops) + [**Age**](https://github.com/FiloSottile/age) – Encrypted Kubernetes Secrets with Git-safe commits  
-- [**Traefik**](https://github.com/traefik/traefik) / [**Ingress-NGINX**](https://github.com/kubernetes/ingress-nginx) – Ingress controllers with TLS termination  
+- [**Ingress-NGINX**](https://github.com/kubernetes/ingress-nginx) – Ingress controllers with TLS termination  
 - [**cert-manager**](https://github.com/cert-manager/cert-manager) – Automated certificate management using Let's Encrypt  
 - [**Prometheus**](https://github.com/prometheus/prometheus) – Time-series monitoring and alerting  
 - [**Grafana**](https://github.com/grafana/grafana) – Dashboard visualization and metrics frontend  
