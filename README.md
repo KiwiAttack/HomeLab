@@ -1,6 +1,6 @@
 # HomeLab Kubernetes GitOps Setup
 
-Welcome to my Homelab GitOps repository! This project defines a self-hosted infrastructure stack using [Kubernetes](https://kubernetes.io/), [Flux](https://fluxcd.io/), and secure GitOps practices. The entire system runs on bare-metal nodes at home with persistent storage, service monitoring, and secret encryption.
+Welcome to my Homelab GitOps repository! This project defines a self-hosted infrastructure stack using Kubernetes, Flux, and secure GitOps practices. The entire system runs on bare-metal nodes at home with persistent storage, service monitoring, and secret encryption.
 
 ---
 
