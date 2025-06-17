@@ -1,167 +1,94 @@
-# HomeLab: GitOps with k3s, Flux, and Secure Services
+# HomeLab Kubernetes GitOps Setup
 
-This repository contains my personal homelab setup, managed entirely through GitOps principles. The core of this setup is a Kubernetes cluster running k3s, with application and infrastructure deployments orchestrated by Flux CD. Key services include a TLS-secured Wiki application and Vaultwarden (a Bitwarden compatible server), leveraging NGINX Ingress and Cert-Manager for automatic certificate provisioning from Let's Encrypt.
+Welcome to my Homelab GitOps repository! This project defines a self-hosted infrastructure stack using [Kubernetes](https://kubernetes.io/), [Flux](https://fluxcd.io/), and secure GitOps practices. The entire system runs on bare-metal nodes at home with persistent storage, service monitoring, and secret encryption.
 
-## Table of Contents
+---
 
-- [HomeLab: GitOps with k3s, Flux, and Secure Services](#homelab-gitops-with-k3s-flux-and-secure-services)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Cluster Components](#cluster-components)
-    - [Kubernetes Distribution](#kubernetes-distribution)
-    - [GitOps Engine](#gitops-engine)
-    - [Ingress Controller](#ingress-controller)
-    - [Certificate Management](#certificate-management)
-    - [Persistent Storage](#persistent-storage)
-    - [Secret Management](#secret-management)
-    - [Monitoring](#monitoring)
-  - [Applications](#applications)
-    - [Wiki.js](#wikijs)
-    - [PostgreSQL (for Wiki.js)](#postgresql-for-wikijs)
-    - [Vaultwarden](#vaultwarden)
-  - [Directory Structure](#directory-structure)
-  - [Deployment](#deployment)
-  - [Configuration & Customization](#configuration--customization)
-  - [Contributing](#contributing)
-  - [License](#license)
+## Core Technologies
 
-## Overview
+- **Kubernetes (k3s)** – Lightweight Kubernetes distribution for edge computing
+- **FluxCD** – GitOps controller to manage Kubernetes state from this repo
+- **Kustomize** – Kubernetes-native configuration management
+- **SOPS + Age** – Encrypted Kubernetes Secrets with Git-safe commits
+- **Traefik / Ingress-NGINX** – Ingress controllers with TLS termination
+- **cert-manager** – Automated certificate management using Let's Encrypt
+- **Persistent Storage** – Backed by local NFS or ZFS with PVCs
+- **CrowdSec** – Security automation and protection (under active deployment)
 
-This homelab aims to demonstrate and utilize modern cloud-native practices, specifically GitOps, for managing personal services. All configurations are stored in this Git repository, and Flux CD ensures that the state of the Kubernetes cluster converges to the desired state defined here.
+---
 
-## Cluster Components
+## Repository Structure
 
-### Kubernetes Distribution
-
-* **k3s**: A lightweight, certified Kubernetes distribution ideal for edge, IoT, and homelab environments. It's designed for low resource consumption while providing a complete Kubernetes experience.
-
-### GitOps Engine
-
-* **Flux CD**: Flux is a set of GitOps tools for keeping Kubernetes clusters in sync with configuration sources (like Git repositories) and automating updates to configuration when there is new code.
-    * **Source Controller**: Manages fetching content from various sources (Git, Helm repositories, S3 buckets).
-    * **Kustomize Controller**: Reconciles Kustomization resources, applying templated Kubernetes manifests to the cluster.
-    * **Helm Controller**: Manages Helm chart releases.
-    * **Notification Controller**: Handles events from Flux components and dispatches them to configured providers (e.g., webhooks for external alerting).
-
-### Ingress Controller
-
-* **NGINX Ingress Controller**: Manages external access to services within the cluster, providing HTTP/S routing and advanced traffic management features. It is configured with custom logging and integrated with Crowdsec for basic WAF capabilities using a Lua bouncer plugin.
-
-### Certificate Management
-
-* **Cert-Manager**: Automates the issuance and renewal of TLS certificates from various issuing sources, including Let's Encrypt.
-    * `letsencrypt-prod`: ClusterIssuer for production-ready certificates from Let's Encrypt.
-    * `letsencrypt-staging`: ClusterIssuer for testing certificates from Let's Encrypt staging environment.
-
-### Persistent Storage
-
-* **NFS (Network File System)**: Used for providing persistent storage to stateful applications like Wiki.js and Vaultwarden. The NFS server is located at `192.168.178.200`.
-
-### Secret Management
-
-* **Mozilla SOPS**: Sensitive data (like database passwords and API keys) are encrypted using SOPS and stored in the Git repository. Flux's Kustomize controller is configured to decrypt these secrets before applying them to the cluster, ensuring sensitive information remains encrypted at rest and in transit.
-
-### Monitoring
-
-* **Prometheus**: An open-source monitoring system with a dimensional data model, flexible query language (PromQL), and powerful alerting capabilities. It collects metrics from the Kubernetes cluster and deployed applications.
-* **Grafana**: An open-source platform for monitoring and observability. It allows you to query, visualize, alert on, and explore your metrics through customizable dashboards, often used in conjunction with Prometheus. You can access Grafana at `grafana.kiwilab.dev`. Persistent storage for Grafana is configured via NFS using `grafana-nfs-pvc`.
-
-## Applications
-
-### Wiki.js
-
-* A powerful and extensible Wiki application deployed on Kubernetes.
-* **Database**: Uses PostgreSQL for its backend database.
-* **Persistent Storage**: Data is stored on an NFS share for persistence.
-
-### PostgreSQL (for Wiki.js)
-
-* A robust, open-source relational database used as the backend for Wiki.js.
-* **Persistent Storage**: Data is stored on an NFS share for persistence.
-
-### Vaultwarden
-
-* A light-weight Bitwarden® compatible server, perfect for self-hosting your password manager.
-* **Persistent Storage**: Data is stored on an NFS share for persistence.
-* **Email Notifications**: Configured to send emails via Gmail SMTP on port 465 for features like account verification, using an App Password for secure authentication.
-
-## Directory Structure
-```bash
+```text
 .
-├── apps/
-│   ├── wiki/                   # Wiki.js application manifests
-│   │   ├── base/
-│   │   ├── postgres/
-│   │   ├── storage/
-│   │   └── kustomization.yaml
-│   └── vaultwarden/            # Vaultwarden application manifests
-│       ├── base/
-│       │   ├── deployment.yaml
-│       │   ├── ingress.yaml
-│       │   ├── namespace.yaml
-│       │   └── service.yaml
-│       ├── storage/
-│       │   └── pv-vaultwarden.yaml
-│       ├── secret.sops.yaml    # Encrypted admin token
-│       └── kustomization.yaml
-├── clusters/
-│   └── heimdall/               # Cluster-specific configurations
-│       ├── flux-system/        # Flux CD core components and synchronization
-│       │   ├── gotk-components.yaml
-│       │   ├── gotk-sync.yaml
-│       │   └── kustomization.yaml
-│       ├── apps.yaml           # Kustomization for applications
-│       └── infrastructure.yaml # Kustomization for infrastructure components
-└── infrastructure/
-├── cert-issuer/            # Cert-Manager ClusterIssuers
-│   ├── base/
-│   └── kustomization.yaml
-├── cert-manager/           # Cert-Manager HelmRelease and repository
-│   ├── base/
-│   └── kustomization.yaml
-├── ingress-nginx/          # NGINX Ingress Controller
-│   ├── base/
-│   └── kustomization.yaml
-└── monitoring/             # Monitoring stack with Prometheus and Grafana
-    ├── grafana/
-    │   ├── base/
-    │   ├── storage/
-    │   └── kustomization.yaml
-    └── prometheus/
-        ├── base/
-        └── kustomization.yaml
+├── apps/                   # Namespace-scoped applications
+│   ├── vaultwarden/        # Encrypted password manager
+│   ├── speedtest/          # Internet speed monitoring
+│   └── wiki/               # Self-hosted Wiki + Postgres backend
+├── infrastructure/         # Cluster-wide tools (monitoring, ingress, certs)
+│   ├── blackbox/           # Blackbox Exporter monitoring probes
+│   ├── crowdsec/           # CrowdSec LAPI and dashboards
+│   └── cert-manager/       # Certificate automation
+├── .gitlab-ci.yml          # YAML/manifest validation pipeline
+├── README.md               # This file
+└── LICENSE
+
 ```
 
-## Deployment
+## Secrets Management
+All sensitive credentials are managed with [SOPS](https://github.com/getsops/sops) and [Age](https://github.com/FiloSottile/age). Encrypted files are committed to Git and decrypted at runtime in-cluster via Flux + KSOPS.
 
-To deploy this homelab setup, you would typically:
+Example of encrypting a secret:
 
-1.  **Install k3s** on your bare-metal nodes.
-2.  **Install Flux CD CLI** and bootstrap Flux onto your k3s cluster, pointing it to this Git repository.
-    ```bash
-    flux bootstrap github \
-      --owner=<your-github-username> \
-      --repository=<your-repo-name> \
-      --branch=main \
-      --path=./clusters/<your-cluster-name> \
-      --personal \
-    ```
-    *Note: Replace `<your-github-username>` and `<your-sops-age-key-passphrase>` with your actual values.*
+```bash
+sops --encrypt --age <YOUR_AGE_PUBLIC_KEY> --in-place ./secrets/secret.yaml
+Decryption is only possible in-cluster with the correct private Age key stored securely.
+```
 
-Flux will then automatically synchronize the cluster with the configurations defined in this repository, deploying all infrastructure components and applications.
+## Deployment Flow
+Create the GitOps repository (this repo).
 
-## Configuration & Customization
+- Bootstrap Flux with your Git credentials and public Age key:
 
-* **Secrets**: All sensitive data (like database passwords and API keys) are managed using SOPS. To decrypt and encrypt secrets, ensure you have the correct SOPS age key configured.
-* **NFS Paths**: Adjust the `path` and `server` values in `apps/*/storage/pv-*.yaml` to match your NFS server configuration.
-* **Ingress Hostnames**: Update the `host` in `apps/*/base/ingress.yaml` files to your desired domains for Wiki.js, Vaultwarden, etc.
-* **Cert-Manager Email**: Change the `email` in `infrastructure/cert-issuer/base/cert-issuer.yaml` and `cert-staging-issuer.yaml` to your email address for Let's Encrypt notifications.
-* **Vaultwarden Specifics**:
-    * **Admin Token**: Generate a secure Argon2 hash for your admin token using `vaultwarden hash <your-token>` inside the Vaultwarden container and update `apps/vaultwarden/secret.sops.yaml`.
-    * **SMTP Settings**: Configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` (via secret), `SMTP_SSL`, `SMTP_STARTTLS`, `SMTP_EXPLICIT_TLS` for email functionality.
-    * **Domain**: Set `DOMAIN` and `URL_BASE` to your public URL (e.g., `https://vault.kiwilab.dev`) for correct link generation.
-    * **Sign-ups**: Adjust `SIGNUPS_ALLOWED` (`true` to enable, `false` to disable) and `SIGNUPS_VERIFY` (`true` to require email verification, `false` to skip) as needed for user registration. Remember to disable sign-ups after creating initial accounts for security.
+```bash
+flux bootstrap github \
+  --owner=<your-github-user> \
+  --repository=HomeLab \
+  --path=./ \
+  --personal \
+  --private=false
+```
 
-## License
+- Apply secrets and allow SOPS to decrypt them via KSOPS or controller configuration.
+- Flux continuously syncs all resources from Git.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Monitoring and Observability
+
+- [Blackbox Exporter](https://github.com/prometheus/blackbox_exporter) to probe endpoints like external IPs, DNS, or self-hosted services.
+- [Prometheus](https://github.com/prometheus/prometheus) to track metrics.
+- Alerts and dashboards are set up using Alertmanager and [Grafana](https://github.com/grafana/grafana) for visual dashboards.
+
+## Network Layout (High-Level)
+```mermaid
+graph TD
+  GitHub[GitHub Repo] -->|Flux Sync| Cluster[k3s Cluster]
+  Cluster -->|Ingress| NGINX[Ingress-NGINX]
+  Cluster -->|Service| Vaultwarden
+  Cluster -->|Service| Wiki
+  Cluster -->|Service| Speedtest
+  Cluster -->|PVC| NFS[NFS Storage]
+```
+
+## CI/CD
+
+- This repository includes a GitLab CI pipeline to validate manifests:
+- yamllint checks formatting
+- kustomize build ensures Kustomizations are valid
+
+```yaml
+before_script:
+  - curl -Lo /usr/local/bin/kustomize ...
+script:
+  - find . -name "*.yaml" | xargs yamllint
+  - kustomize build clusters/heimdall > /dev/null
+```
