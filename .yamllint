@@ -3,7 +3,10 @@ extends: default
 rules:
   line-length:
     max: 120
-    level: ignore
+    level: warning
+    ignore: |
+      clusters/heimdall/flux-system/gotk-components.yaml
+      .github/workflows/validate.yaml
   trailing-spaces:
     level: warning
   truthy: disable
