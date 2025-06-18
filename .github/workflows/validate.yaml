@@ -29,5 +29,35 @@ jobs:
         run: |
           find . -type f -name "*.yaml" ! -name "*.sops.yaml" | xargs -r yamllint || exit 1
 
-      - name: Build kustomize (fail if invalid)
+      # Kustomize build steps for Flux System
+      - name: Build Flux System Kustomization
         run: kustomize build clusters/heimdall/flux-system > /dev/null
+
+      # Kustomize build steps for Applications
+      - name: Build Wiki Kustomization
+        run: kustomize build ./apps/wiki > /dev/null
+
+      - name: Build Vaultwarden Kustomization
+        run: kustomize build ./apps/vaultwarden > /dev/null
+
+      - name: Build Speedtest Kustomization
+        run: kustomize build ./apps/speedtest > /dev/null
+
+      # Kustomize build steps for Infrastructure
+      - name: Build Ingress-Nginx Kustomization
+        run: kustomize build ./infrastructure/ingress-nginx > /dev/null
+
+      - name: Build Cert-Manager Kustomization
+        run: kustomize build ./infrastructure/cert-manager > /dev/null
+
+      - name: Build Cert-Issuer Kustomization
+        run: kustomize build ./infrastructure/cert-issuer > /dev/null
+
+      - name: Build Grafana Kustomization
+        run: kustomize build ./infrastructure/monitoring/grafana > /dev/null
+
+      - name: Build Prometheus Kustomization
+        run: kustomize build ./infrastructure/monitoring/prometheus > /dev/null
+
+      - name: Build Blackbox Kustomization
+        run: kustomize build ./infrastructure/monitoring/blackbox > /dev/null
