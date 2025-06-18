@@ -10,17 +10,17 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-  - hosts:
-    - grafana.kiwilab.dev
-    secretName: grafana.kiwilab.dev-cert
+    - hosts:
+        - grafana.kiwilab.dev
+      secretName: grafana.kiwilab.dev-cert
   rules:
-  - host: grafana.kiwilab.dev
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: grafana
-            port:
-              number: 80
+    - host: grafana.kiwilab.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 80

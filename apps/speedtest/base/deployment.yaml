@@ -16,59 +16,59 @@ spec:
         app: speedtest-tracker
     spec:
       containers:
-      - name: speedtest-tracker
-        image: lscr.io/linuxserver/speedtest-tracker:latest
-        env:
-        - name: PUID
-          value: "1000"
-        - name: PGID
-          value: "1000"
-        - name: TZ
-          value: Europe/Berlin
-        - name: APP_URL
-          value: https://speedtest.kiwilab.dev
-        - name: DB_CONNECTION
-          value: sqlite
-        - name: SPEEDTEST_SCHEDULE
-          value: "0 */4 * * *"
-        - name: APP_KEY
-          valueFrom:
-            secretKeyRef:
-              name: speedtest-env
-              key: APP_KEY
-        - name: ADMIN_EMAIL
-          valueFrom:
-            secretKeyRef:
-                name: email
-                key: EMAIL
-        - name: ADMIN_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: speedtest-admin-pw
-              key: PASSWORD
-        - name: APP_DEBUG
-          value: "false"
-        - name: SPEEDTEST_SERVERS
-          value: "67618,63237,35154"
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        ports:
-        - containerPort: 80
-          name: http
-        readinessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 10
-          periodSeconds: 15
-        livenessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 30
-          periodSeconds: 30
-        resources:
+        - name: speedtest-tracker
+          image: lscr.io/linuxserver/speedtest-tracker:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: Europe/Berlin
+            - name: APP_URL
+              value: https://speedtest.kiwilab.dev
+            - name: DB_CONNECTION
+              value: sqlite
+            - name: SPEEDTEST_SCHEDULE
+              value: "0 */4 * * *"
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-env
+                  key: APP_KEY
+            - name: ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: email
+                  key: EMAIL
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-admin-pw
+                  key: PASSWORD
+            - name: APP_DEBUG
+              value: "false"
+            - name: SPEEDTEST_SERVERS
+              value: "67618,63237,35154"
+          volumeMounts:
+            - name: config
+              mountPath: /config
+          ports:
+            - containerPort: 80
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources:
             requests:
               memory: "512Mi"
               cpu: "250m"
@@ -76,6 +76,6 @@ spec:
               memory: "1G"
               cpu: "500m"
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: speedtest-tracker-pvc
+        - name: config
+          persistentVolumeClaim:
+            claimName: speedtest-tracker-pvc

@@ -10,19 +10,19 @@ spec:
             name: letsencrypt-prod
         solvers:
             - http01:
-                ingress:
-                    class: nginx
+                  ingress:
+                      class: nginx
 sops:
     age:
         - recipient: age17ts7pfxmpkv4xcr37dr3r2929vn0k8aaht8h94eexvqkkuv3nd6sp0l3y6
           enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBBOXhmSC9EbmtZUTVaVzFE
-            VXppTVNFbWtod3JCdXowL0Uzc0ZXZzg3MkhVCkxTY2pjMGQvTXFPbzJPMEhCcW05
-            OTQyVjI5bmZveXQ3MzllLzBYWEo3dlkKLS0tIEpRNkFtNVQxdEtHOHF6RnNHeGVh
-            ZTB3Uysrb2NhTjlRL2h2R096a2pRWDAKBfev8uovVjR4Bs7bcGIoYxb1nuhv2Ja3
-            2r+71QwOk/WPzAAwNI8AVk67ulG2RPUwoZTD6Y2tjlttkBQEK08WGQ==
-            -----END AGE ENCRYPTED FILE-----
+              -----BEGIN AGE ENCRYPTED FILE-----
+              YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBBOXhmSC9EbmtZUTVaVzFE
+              VXppTVNFbWtod3JCdXowL0Uzc0ZXZzg3MkhVCkxTY2pjMGQvTXFPbzJPMEhCcW05
+              OTQyVjI5bmZveXQ3MzllLzBYWEo3dlkKLS0tIEpRNkFtNVQxdEtHOHF6RnNHeGVh
+              ZTB3Uysrb2NhTjlRL2h2R096a2pRWDAKBfev8uovVjR4Bs7bcGIoYxb1nuhv2Ja3
+              2r+71QwOk/WPzAAwNI8AVk67ulG2RPUwoZTD6Y2tjlttkBQEK08WGQ==
+              -----END AGE ENCRYPTED FILE-----
     lastmodified: "2025-06-17T16:39:51Z"
     mac: ENC[AES256_GCM,data:C48EL7aZmmVCaLLxRoFECfvmOXrxyz20esSZa2XfMf2482C6T8/ikKTzxPLApuECPrhV4bvStt5QJD6KmizR+rJPVgQIUWJLtYFlDLOrXQg63dW5SL3awFF3RHvycx3ZpwOXUVtHdyODNBNQxcOCiLDn9JByCTjyQ8s7fa0jOjk=,iv:gEwWCyWRo7PHwXbFrTFyhddho6v7kvXd+q1ve1Y5qjk=,tag:6o1e0uFXApybL4jf/7dbXA==,type:str]
     encrypted_regex: ^(data|stringData)$

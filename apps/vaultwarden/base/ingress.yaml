@@ -13,17 +13,17 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-  - hosts:
-    - vault.kiwilab.dev
-    secretName: vault.kiwilab.dev-cert
+    - hosts:
+        - vault.kiwilab.dev
+      secretName: vault.kiwilab.dev-cert
   rules:
-  - host: vault.kiwilab.dev
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: vaultwarden-service
-            port:
-              number: 80
+    - host: vault.kiwilab.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vaultwarden-service
+                port:
+                  number: 80

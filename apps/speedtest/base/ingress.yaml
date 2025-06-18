@@ -13,17 +13,17 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-  - hosts:
-    - speedtest.kiwilab.dev
-    secretName: speedtest.kiwilab.dev-cert
+    - hosts:
+        - speedtest.kiwilab.dev
+      secretName: speedtest.kiwilab.dev-cert
   rules:
-  - host: speedtest.kiwilab.dev
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: speedtest-tracker
-            port:
-              number: 80
+    - host: speedtest.kiwilab.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: speedtest-tracker
+                port:
+                  number: 80
