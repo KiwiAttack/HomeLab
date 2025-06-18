@@ -65,9 +65,7 @@ spec:
             - "sh"
             - "-c"
             - >
-              sh /docker_start.sh &&
-              mkdir -p /lua_plugins/crowdsec/ &&
-              cp -R /crowdsec/* /lua_plugins/crowdsec/
+              sh /docker_start.sh && mkdir -p /lua_plugins/crowdsec/ && cp -R /crowdsec/* /lua_plugins/crowdsec/
           volumeMounts:
             - name: crowdsec-bouncer-plugin
               mountPath: /lua_plugins
