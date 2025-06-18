@@ -23,7 +23,8 @@ jobs:
           sudo mv kustomize /usr/local/bin/
 
       - name: Lint YAML files
-        run: find . -name "*.yaml" -o -name "*.sops.yaml" | xargs yamllint
+        run: |
+          find . -name "*.yaml" -o -name "*.sops.yaml" | xargs -r yamllint || exit 1
 
       - name: Build kustomize (fail if invalid)
         run: kustomize build clusters/heimdall > /dev/null
