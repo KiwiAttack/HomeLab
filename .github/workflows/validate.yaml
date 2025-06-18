@@ -26,4 +26,4 @@ jobs:
           find . -type f -name "*.yaml" ! -name "*.sops.yaml" | xargs -r yamllint || exit 1
 
       - name: Build kustomize (fail if invalid)
-        run: kustomize build clusters/heimdall > /dev/null
+        run: kustomize build clusters/heimdall/flux-system > /dev/null
