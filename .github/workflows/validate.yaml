@@ -16,7 +16,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y curl gnupg yamllint
-          curl -Lo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.6.0/kustomize_v5.6.0_linux_amd64.tar.gz
+          wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.6.0/kustomize_v5.6.0_linux_amd64.tar.gz
           tar -xzf kustomize_v5.6.0_linux_amd64.tar.gz
           chmod +x kustomize
           sudo mv kustomize /usr/local/bin/
