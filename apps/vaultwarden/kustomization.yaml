@@ -10,4 +10,4 @@ resources:
   - storage/pv-vaultwarden.yaml
   - secrets/secret.sops.yaml
   - secrets/secret-smtp.sops.yaml
-  - secrets/email.sops
+  - secrets/email.sops.yaml
