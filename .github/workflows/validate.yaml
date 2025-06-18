@@ -15,7 +15,7 @@ jobs:
       - name: Install tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl gnupg yamllint
+          sudo apt-get install -y curl gnupg yamllint wget
           wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.6.0/kustomize_v5.6.0_linux_amd64.tar.gz
           tar -xzf kustomize_v5.6.0_linux_amd64.tar.gz
           chmod +x kustomize
