@@ -1,11 +1,9 @@
-# .github/workflows/validate.yaml
 name: Validate Kubernetes YAML
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+  pull_request: {}
 
 jobs:
   validate:
@@ -24,7 +22,7 @@ jobs:
 
       - name: Lint YAML files
         run: |
-          find . -name "*.yaml" -o -name "*.sops.yaml" | xargs -r yamllint || exit 1
+          find . -type f -name "*.yaml" ! -name "*.sops.yaml" | xargs -r yamllint || exit 1
 
       - name: Build kustomize (fail if invalid)
         run: kustomize build clusters/heimdall > /dev/null
