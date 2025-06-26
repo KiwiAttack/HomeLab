@@ -39,17 +39,17 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: valheim
+  name: vrising
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./gameserver/valheim
+  path: ./gameserver/vrising
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: valheim
+  targetNamespace: vrising
   decryption:
     provider: sops
     secretRef:
