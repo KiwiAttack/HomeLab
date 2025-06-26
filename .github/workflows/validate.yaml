@@ -50,6 +50,9 @@ jobs:
       - name: Build Valheim Kustomization
         run: kustomize build ./gameserver/valheim > /dev/null
 
+      - name: Build VRising Kustomization
+        run: kustomize build ./gameserver/vrising > /dev/null
+
       # Kustomize build steps for Infrastructure
       - name: Build Ingress-Nginx Kustomization
         run: kustomize build ./infrastructure/ingress-nginx > /dev/null
