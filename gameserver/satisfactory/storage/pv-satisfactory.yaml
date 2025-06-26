@@ -3,11 +3,15 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: satisfactory-pv
+  namespace: satisfactory
 spec:
   capacity:
     storage: 10Gi
+    volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
   nfs:
     server: 192.168.178.200
     path: /srv/k8s-data/satisfactory
@@ -23,3 +27,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
+  storageClassName: ""
