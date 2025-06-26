@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrising-server
+  namespace: vrising
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vrising
+  template:
+    metadata:
+      labels:
+        app: vrising
+    spec:
+      nodeSelector:
+        environment: gameserver
+      containers:
+        - name: vrising
+          image: trueosiris/vrising
+          ports:
+            - containerPort: 9876
+              protocol: UDP
+            - containerPort: 9877
+              protocol: UDP
+          env:
+            - name: TZ
+              value: Europe/Berlin
+            - name: SERVERNAME
+              value: Kiwilab
+            - name: WORLDNAME
+              valueFrom:
+                secretKeyRef:
+                  name: vrising-secret
+                  key: WORLDNAME
+            - name: PGID
+              value: "1001"
+            - name: PUID
+              value: "1001"
+          volumeMounts:
+            - name: server
+              mountPath: /mnt/vrising/server
+            - name: data
+              mountPath: /mnt/vrising/persistentdata
+      volumes:
+        - name: server
+          persistentVolumeClaim:
+            claimName: vrising-server-pvc
+        - name: data
+          persistentVolumeClaim:
+            claimName: vrising-data-pvc
