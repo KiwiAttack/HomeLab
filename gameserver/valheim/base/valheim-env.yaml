@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: valheim-env
+  namespace: valheim
+data:
+  SERVER_NAME: BabuK
+  WORLD_NAME: PureTortue
+  SERVER_PUBLIC: "true"
+  ADMINLIST_IDS: "76561198014308554"
+  UPDATE_CRON: "*/15 * * * *"
+  UPDATE_IF_IDLE: "true"
+  IDLE_DATAGRAM_WINDOW: "3"
+  IDLE_DATAGRAM: "MAX_COUNT=30"
+  RESTART_CRON: "10 5 * * *"
+  RESTART_IF_IDLE: "true"
+  TZ: Europe/Berlin
+  BACKUPS: "true"
+  BACKUPS_CRON: "5 * * * *"
+  BACKUPS_DIRECTORY: /config/backups
+  BACKUPS_MAX_AGE: "3"
+  BACKUPS_MAX_COUNT: "1"
+  BACKUPS_ZIP: "true"
+  BACKUPS_IF_IDLE: "false"
+  VALHEIM_PLUS: "true"
+  VALHEIM_PLUS_REPO: Grantapher/ValheimPlus
+  VALHEIM_PLUS_RELEASE: latest
+  PUID: "1001"
+  PGID: "1001"
+  VPCFG_Server_enabled: "true"
+  VPCFG_Server_enforceMod: "true"
+  VPCFG_Server_dataRate: "500"

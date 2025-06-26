@@ -35,6 +35,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: valheim-env
+          env:
+            - name: SERVER_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: valheim-secret
+                  key: SERVER_PASS
           resources:
             requests:
               memory: "2Gi"
@@ -42,16 +48,16 @@ spec:
             limits:
               memory: "6Gi"
               cpu: "2000m"
-#          livenessProbe:
-#            tcpSocket:
-#              port: 2456
-#            initialDelaySeconds: 300
-#            periodSeconds: 30
-#          readinessProbe:
-#            tcpSocket:
-#              port: 2456
-#            initialDelaySeconds: 240
-#            periodSeconds: 15
+      #          livenessProbe:
+      #            tcpSocket:
+      #              port: 2456
+      #            initialDelaySeconds: 300
+      #            periodSeconds: 30
+      #          readinessProbe:
+      #            tcpSocket:
+      #              port: 2456
+      #            initialDelaySeconds: 240
+      #            periodSeconds: 15
       volumes:
         - name: config
           persistentVolumeClaim:
