@@ -38,6 +38,13 @@ spec:
               value: "1001"
             - name: PUID
               value: "1001"
+          resources:
+            requests:
+              memory: "3Gi"
+              cpu: "500m"
+            limits:
+              memory: "8Gi"
+              cpu: "2000m"
           volumeMounts:
             - name: server
               mountPath: /mnt/vrising/server
