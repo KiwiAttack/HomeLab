@@ -6,6 +6,7 @@ metadata:
   namespace: satisfactory
 spec:
   type: NodePort
+  externalTrafficPolicy: Local
   selector:
     app: satisfactory
   ports:
@@ -13,11 +14,14 @@ spec:
       port: 7777
       protocol: TCP
       targetPort: 7777
+      nodePort: 31668
     - name: udp-game
       port: 7777
       protocol: UDP
       targetPort: 7777
+      nodePort: 31668
     - name: web
       port: 8888
       protocol: TCP
       targetPort: 8888
+      nodePort: 31398
