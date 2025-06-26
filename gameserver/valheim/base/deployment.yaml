@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: valheim-server
+  namespace: valheim
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: valheim
+  template:
+    metadata:
+      labels:
+        app: valheim
+    spec:
+      nodeSelector:
+        environment: gameserver
+      containers:
+        - name: valheim
+          image: ghcr.io/lloesche/valheim-server
+          ports:
+            - containerPort: 2456
+              protocol: UDP
+            - containerPort: 2457
+              protocol: UDP
+            - containerPort: 2458
+              protocol: UDP
+            - containerPort: 9001
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: data
+              mountPath: /opt/valheim
+          envFrom:
+            - configMapRef:
+                name: valheim-env
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: "500m"
+            limits:
+              memory: "6Gi"
+              cpu: "2000m"
+          livenessProbe:
+            tcpSocket:
+              port: 2456
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 2456
+            initialDelaySeconds: 30
+            periodSeconds: 15
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: valheim-config-pvc
+        - name: data
+          persistentVolumeClaim:
+            claimName: valheim-data-pvc
