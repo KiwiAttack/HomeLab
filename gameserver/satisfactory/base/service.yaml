@@ -24,4 +24,4 @@ spec:
       port: 8888
       protocol: TCP
       targetPort: 8888
-      nodePort: 31398
+      nodePort: 31669
