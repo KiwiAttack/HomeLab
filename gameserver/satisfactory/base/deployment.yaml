@@ -45,13 +45,13 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 7777
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
             periodSeconds: 30
             failureThreshold: 5
           readinessProbe:
             tcpSocket:
               port: 7777
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             periodSeconds: 15
             failureThreshold: 3
           volumeMounts:
