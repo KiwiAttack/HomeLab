@@ -28,7 +28,6 @@ spec:
       service:
         type: LoadBalancer
         externalTrafficPolicy: Local
-      customConfigMap: custom-nginx-config
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
@@ -42,16 +41,14 @@ spec:
           http-snippet: |
             include /etc/nginx/custom-conf.d/custom-logs.conf;
             include /etc/nginx/custom-conf.d/security-headers.conf;
-      extraConfigMapMounts:
-        - name: custom-nginx-config
-          mountPath: /etc/nginx/custom-conf.d
-          configMap: custom-nginx-config
-          readOnly: true
       extraVolumes:
         - name: nginx-logs
           hostPath:
             path: /var/log/nginx
             type: DirectoryOrCreate
+        - name: custom-nginx-config
+          configMap:
+            name: custom-nginx-config
         - name: crowdsec-bouncer-plugin
           emptyDir: {}
       extraInitContainers:
@@ -78,6 +75,9 @@ spec:
       extraVolumeMounts:
         - name: nginx-logs
           mountPath: /var/log/nginx
+        - name: custom-nginx-config
+          mountPath: /etc/nginx/custom-conf.d
+          readOnly: true
         - name: crowdsec-bouncer-plugin
           mountPath: /etc/nginx/lua/plugins/crowdsec
           subPath: crowdsec
