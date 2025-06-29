@@ -34,6 +34,12 @@ spec:
         enable-real-ip: "true"
         real-ip-header: "X-Forwarded-For"
         set-real-ip-from: "192.168.178.0/24"
+        ssl-protocols: "TLSv1.2 TLSv1.3"
+        ssl-prefer-server-ciphers: "true"
+        ssl-ciphers: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384"
+        limit-connections: "10"
+        limit-rpm: "60"
+        limit-rps: "5"
         plugins: "crowdsec"
         lua-shared-dicts: "crowdsec_cache: 50m"
         resolver: "192.168.178.200"
@@ -47,6 +53,9 @@ spec:
           more_set_headers "X-Frame-Options: DENY";
           more_set_headers "X-Content-Type-Options: nosniff";
           more_set_headers "X-XSS-Protection: 1; mode=block";
+          more_set_headers "Strict-Transport-Security: max-age=63072000; includeSubDomains; preload";
+          more_set_headers "Referrer-Policy: no-referrer-when-downgrade";
+          more_set_headers "Permissions-Policy: geolocation=(), microphone=()";
       extraVolumes:
         - name: nginx-logs
           hostPath:
