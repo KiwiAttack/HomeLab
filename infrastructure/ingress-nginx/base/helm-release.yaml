@@ -37,17 +37,16 @@ spec:
         plugins: "crowdsec"
         lua-shared-dicts: "crowdsec_cache: 50m"
         resolver: "192.168.178.200"
-        entries:
-          http-snippet: |
-            log_format main '$remote_addr - $remote_user [$time_local] "$request" '
-                            '$status $body_bytes_sent "$http_referer" '
-                            '"$http_user_agent" "$http_x_forwarded_for"';
-            access_log /var/log/nginx/access.log main;
-            error_log  /var/log/nginx/error.log warn;
+        http-snippet: |
+          log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                          '$status $body_bytes_sent "$http_referer" '
+                          '"$http_user_agent" "$http_x_forwarded_for"';
+          access_log /var/log/nginx/access.log main;
+          error_log  /var/log/nginx/error.log warn;
 
-            more_set_headers "X-Frame-Options: DENY";
-            more_set_headers "X-Content-Type-Options: nosniff";
-            more_set_headers "X-XSS-Protection: 1; mode=block";
+          more_set_headers "X-Frame-Options: DENY";
+          more_set_headers "X-Content-Type-Options: nosniff";
+          more_set_headers "X-XSS-Protection: 1; mode=block";
       extraVolumes:
         - name: nginx-logs
           hostPath:
