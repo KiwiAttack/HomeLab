@@ -7,3 +7,4 @@ resources:
   - base/helm-release.yaml
   - base/custom-nginx-config.yaml
   - base/secret-api-key.sops.yaml
+  - base/security-headers-config.yaml
