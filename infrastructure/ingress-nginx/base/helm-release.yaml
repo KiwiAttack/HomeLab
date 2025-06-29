@@ -37,7 +37,7 @@ spec:
         plugins: "crowdsec"
         lua-shared-dicts: "crowdsec_cache: 50m"
         resolver: "192.168.178.200"
-        add-headers: security-headers.conf
+        add-headers: custom-nginx-config
       extraVolumes:
         - name: nginx-config
           configMap:
