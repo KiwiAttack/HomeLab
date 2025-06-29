@@ -37,7 +37,7 @@ spec:
         plugins: "crowdsec"
         lua-shared-dicts: "crowdsec_cache: 50m"
         resolver: "192.168.178.200"
-        add-headers: /etc/nginx/custom-conf.d/security-headers.conf
+        add-headers: security-headers.conf
       extraVolumes:
         - name: nginx-config
           configMap:
@@ -71,7 +71,7 @@ spec:
               mountPath: /lua_plugins
       extraVolumeMounts:
         - name: nginx-config
-          mountPath: /etc/nginx/custom-conf.d
+          mountPath: /etc/nginx/addon-configmaps
         - name: nginx-logs
           mountPath: /var/log/nginx
         - name: crowdsec-bouncer-plugin
