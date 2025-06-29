@@ -33,7 +33,7 @@ spec:
         compute-full-forwarded-for: "true"
         enable-real-ip: "true"
         real-ip-header: "X-Forwarded-For"
-        set-real-ip-from: |
+        proxy-real-ip-cidr: |
           192.168.178.0/24
         ssl-protocols: "TLSv1.2 TLSv1.3"
         ssl-prefer-server-ciphers: "true"
