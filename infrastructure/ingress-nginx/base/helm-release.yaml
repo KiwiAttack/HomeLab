@@ -39,6 +39,7 @@ spec:
         resolver: "192.168.178.200"
         configSnippet: |
           include /etc/nginx/custom-conf.d/custom-logs.conf;
+          include /etc/nginx/custom-conf.d/security-headers.conf;
       extraConfigMapMounts:
         - name: custom-nginx-config
           mountPath: /etc/nginx/custom-conf.d
