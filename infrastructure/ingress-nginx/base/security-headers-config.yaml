@@ -3,11 +3,7 @@ kind: ConfigMap
 metadata:
   name: security-headers
   namespace: ingress-nginx
-  labels:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/component: controller
 data:
-  security-headers.conf: |
-    more_set_headers "X-Frame-Options: DENY";
-    more_set_headers "X-Content-Type-Options: nosniff";
-    more_set_headers "X-XSS-Protection: 1; mode=block";
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
