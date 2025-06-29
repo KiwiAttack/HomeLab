@@ -40,10 +40,6 @@ spec:
         configSnippet: |
           include /etc/nginx/custom-conf.d/custom-logs.conf;
       extraConfigMapMounts:
-        - name: security-headers
-          mountPath: /etc/nginx/addon-configmaps/security-headers.conf
-          configMap: security-headers
-          readOnly: true
         - name: custom-nginx-config
           mountPath: /etc/nginx/custom-conf.d
           configMap: custom-nginx-config
