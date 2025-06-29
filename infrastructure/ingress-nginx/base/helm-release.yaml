@@ -37,7 +37,7 @@ spec:
         plugins: "crowdsec"
         lua-shared-dicts: "crowdsec_cache: 50m"
         resolver: "192.168.178.200"
-        add-headers: /etc/nginx/addon-configmaps/security-headers.conf
+        add-headers: security-headers
         configSnippet: |
           include /etc/nginx/custom-conf.d/custom-logs.conf;
       extraConfigMapMounts:
