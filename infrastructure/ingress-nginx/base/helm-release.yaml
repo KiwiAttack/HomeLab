@@ -38,10 +38,12 @@ spec:
         lua-shared-dicts: "crowdsec_cache: 50m"
         resolver: "192.168.178.200"
         add-headers: custom-nginx-config
+      extraConfigMapMounts:
+        - name: custom-nginx-config
+          mountPath: /etc/nginx/addon-configmaps
+          configMap: custom-nginx-config
+          readOnly: true
       extraVolumes:
-        - name: nginx-config
-          configMap:
-            name: custom-nginx-config
         - name: nginx-logs
           hostPath:
             path: /var/log/nginx
@@ -65,13 +67,11 @@ spec:
           command:
             - "sh"
             - "-c"
-            - 'sh /docker_start.sh; mkdir -p /lua_plugins/crowdsec/; cp -R /crowdsec/* /lua_plugins/crowdsec/'
+            - "sh /docker_start.sh; mkdir -p /lua_plugins/crowdsec/; cp -R /crowdsec/* /lua_plugins/crowdsec/"
           volumeMounts:
             - name: crowdsec-bouncer-plugin
               mountPath: /lua_plugins
       extraVolumeMounts:
-        - name: nginx-config
-          mountPath: /etc/nginx/addon-configmaps
         - name: nginx-logs
           mountPath: /var/log/nginx
         - name: crowdsec-bouncer-plugin
