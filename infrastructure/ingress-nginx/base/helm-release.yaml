@@ -28,6 +28,7 @@ spec:
       service:
         type: LoadBalancer
         externalTrafficPolicy: Local
+      customConfigMap: custom-nginx-config
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
@@ -37,9 +38,10 @@ spec:
         plugins: "crowdsec"
         lua-shared-dicts: "crowdsec_cache: 50m"
         resolver: "192.168.178.200"
-        http-snippet: |
-          include /etc/nginx/custom-conf.d/custom-logs.conf;
-          include /etc/nginx/custom-conf.d/security-headers.conf;
+        entries:
+          http-snippet: |
+            include /etc/nginx/custom-conf.d/custom-logs.conf;
+            include /etc/nginx/custom-conf.d/security-headers.conf;
       extraConfigMapMounts:
         - name: custom-nginx-config
           mountPath: /etc/nginx/custom-conf.d
