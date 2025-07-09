@@ -12,10 +12,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - wiki1.kiwilab.dev
-      secretName: wiki1.kiwilab.dev-cert
+        - wiki.kiwilab.dev
+      secretName: wiki.kiwilab.dev-cert
   rules:
-    - host: wiki1.kiwilab.dev
+    - host: wiki.kiwilab.dev
       http:
         paths:
           - path: /
