@@ -13,6 +13,7 @@ spec:
       labels:
         app: valheim
     spec:
+      hostNetwork: true
       nodeSelector:
         environment: gameserver
       containers:
