@@ -13,7 +13,7 @@ spec:
     solvers:
       - http01:
           ingress:
-            class: nginx
+            ingressClassName: nginx
 sops:
   age:
     - recipient: age17ts7pfxmpkv4xcr37dr3r2929vn0k8aaht8h94eexvqkkuv3nd6sp0l3y6
