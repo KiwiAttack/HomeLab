@@ -6,7 +6,7 @@ metadata:
   namespace: valheim
 spec:
   type: NodePort
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   selector:
     app: valheim
   ports:
