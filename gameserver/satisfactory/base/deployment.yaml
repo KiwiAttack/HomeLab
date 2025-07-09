@@ -14,6 +14,7 @@ spec:
       labels:
         app: satisfactory
     spec:
+      hostNetwork: true
       nodeSelector:
         environment: gameserver
       containers:
