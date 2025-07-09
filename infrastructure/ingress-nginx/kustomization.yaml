@@ -5,4 +5,3 @@ resources:
   - base/namespace.yaml
   - base/nginx-repo.yaml
   - base/helm-release.yaml
-  - base/secret-api-key.sops.yaml
