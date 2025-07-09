@@ -62,11 +62,4 @@ spec:
               - target_label: __address__
                 replacement: blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
     alertmanager:
-      enabled: true
-      resources:
-        requests:
-          cpu: 100m
-          memory: 128Mi
-        limits:
-          cpu: 500m
-          memory: 512Mi
+      enabled: false
