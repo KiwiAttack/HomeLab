@@ -27,6 +27,7 @@ spec:
       enabled: false
     prometheus:
       prometheusSpec:
+        scrapeInterval: 30s
         resources:
           requests:
             cpu: 200m
