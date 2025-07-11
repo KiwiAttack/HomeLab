@@ -16,7 +16,7 @@ spec:
     spec:
       hostNetwork: true
       nodeSelector:
-        environment: gameserver
+        kubernetes.io/hostname: k8s-worker01
       containers:
         - name: vrising
           image: trueosiris/vrising

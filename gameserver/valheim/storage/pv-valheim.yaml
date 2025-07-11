@@ -11,10 +11,18 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  nfs:
-    server: 192.168.178.200
-    path: /srv/k8s-data/valheim/config
+  hostPath:
+    path: /srv/valheim/config
+    type: DirectoryOrCreate
   storageClassName: ""
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - k8s-worker01
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -41,10 +49,18 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  nfs:
-    server: 192.168.178.200
-    path: /srv/k8s-data/valheim/data
+  hostPath:
+    path: /srv/valheim/data
+    type: DirectoryOrCreate
   storageClassName: ""
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - k8s-worker01
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
