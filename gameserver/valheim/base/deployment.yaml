@@ -13,7 +13,6 @@ spec:
       labels:
         app: valheim
     spec:
-      hostNetwork: true
       nodeSelector:
         kubernetes.io/hostname: k8s-worker01
       containers:
@@ -21,12 +20,16 @@ spec:
           image: ghcr.io/lloesche/valheim-server
           ports:
             - containerPort: 2456
+              hostPort: 2456
               protocol: UDP
             - containerPort: 2457
+              hostPort: 2457
               protocol: UDP
             - containerPort: 2458
+              hostPort: 2458
               protocol: UDP
             - containerPort: 9001
+              hostPort: 9001
               protocol: TCP
           volumeMounts:
             - name: config
