@@ -42,7 +42,7 @@ spec:
               cpu: "500m"
             limits:
               memory: "12Gi"
-              cpu: "2000m"
+              cpu: "1000m"
           livenessProbe:
             tcpSocket:
               port: 7777
