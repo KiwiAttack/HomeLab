@@ -1,4 +1,3 @@
----
 # staging issuer
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -7,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: server.mehlhorn@gmail.com
+    email: ENC[AES256_GCM,data:jtb/CpCV0kMd6N6S5SUOi/e2uCuFoSI6+w==,iv:S6sbqLTQhKVgW68IbKgNq/V5B021OV0pCZn4Dxjqkw0=,tag:u7sXIVp+ardmVzVyAXpyyg==,type:str]
     privateKeySecretRef:
       name: letsencrypt-staging-account-key
     solvers:
@@ -19,13 +18,13 @@ sops:
     - recipient: age17ts7pfxmpkv4xcr37dr3r2929vn0k8aaht8h94eexvqkkuv3nd6sp0l3y6
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA4VWR4N2UzNXpmWjBCNjdq
-        UDZuSTRPYmNCcHJvMGpPM05UeGNmU05PUmpRCmViUHE1TFA5SU9yM2ZxaDVqSlEr
-        NURIdHBaRktqMnV5SWo1KzdweTkzT2sKLS0tIGt4eFYzc1EyT0wwekJZNTAxdk8v
-        RlFBZTU5VGVKeFZDeUxINkVJNm5jNUkK85S+TiRfgZp0LR+YieA5GLiRpQvEUb78
-        /CVlBGAGP07cLmw7iETXzl9uEQ/LrMQDWRQYVvGLn7LbrU6UfY7KGA==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA3bW5QbVkyQmxMWHI0TkhY
+        Lzg3WUZMT3o5TThwK3Ftcjc4RGZKSXVWUVRvCjhVMkN0emtjUlBpYXExR2VXM2RO
+        NUtzWjRlTEpFMWw5NkRKQXdHVjhUUVkKLS0tIEJMUVFBcmtzdWJ5QVZUWUpmb3di
+        YTcxd0x5VnJ2WGZXV0lLZW1aaTd3UUUKVzgE+/3pu/ZK0pHPmUcS3TDIiZ9rAfqL
+        vSBDgQrAzDJcy6YwXkaf3GOBDfWnJGkBRyM6T5axLPDAsQkBBpp2IQ==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-06-17T16:39:56Z"
-  mac: ENC[AES256_GCM,data:duPF0z2EYPnMd3/9urq7OcDYr727BV2wM0FHpezRtqihydfTsjD3auQ07zGGj2gqMp3qyiuL75e/RfSnJX5Esg6eE7uYcxy59cd2WQaNV665pSN3jXkRagUGJchADK4PH1cGGbz5eaLxRSPrjrGE7f8X666GHpNbMjP5hIfqcR8=,iv:olefNXc5PM6qqwFqpSy3BmrrQBKp9gU4IF69jqtwjDY=,tag:PZNxr9jcN7ECtJhhwvzQWw==,type:str]
-  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2025-07-12T18:40:33Z"
+  mac: ENC[AES256_GCM,data:ZWZzKF2ueESINrqbqfzyagQttVSH+Elr0/Sq27KZbLIWA43SMRk0jdTeoOQwqYRJY968bk053QrAnemKJu2a0V14C1Mfs7g4jju9UoxkqCCLH3HL6Oha3dCmE1X1Wyjo35mqaINvjrSO/R05gDBxXBfh+K1EchzT95HujIkMIcQ=,iv:dqRp1CdrKxnZZFj4/K9+DUdlORic5C1piBZJg81rbW0=,tag:hUgT+JvFWj03mLWQKpqNcg==,type:str]
+  encrypted_regex: ^(email)$
   version: 3.10.2
