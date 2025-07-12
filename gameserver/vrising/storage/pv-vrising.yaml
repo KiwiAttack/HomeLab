@@ -48,7 +48,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /srv/vrising/data
+    path: /srv/test/vrising/data
     type: DirectoryOrCreate
   storageClassName: ""
   nodeAffinity:
