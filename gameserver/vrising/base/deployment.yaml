@@ -27,10 +27,8 @@ spec:
           image: trueosiris/vrising
           ports:
             - containerPort: 9876
-              hostPort: 9876
               protocol: UDP
             - containerPort: 9877
-              hostPort: 9877
               protocol: UDP
           env:
             - name: TZ
