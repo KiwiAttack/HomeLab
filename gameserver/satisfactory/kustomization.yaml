@@ -5,3 +5,4 @@ resources:
   - base/namespace.yaml
   - base/deployment.yaml
   - storage/pv-satisfactory.yaml
+  - cert/cert.yaml

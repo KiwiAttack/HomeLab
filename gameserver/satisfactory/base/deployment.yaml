@@ -20,6 +20,9 @@ spec:
       containers:
         - name: satisfactory
           image: wolveix/satisfactory-server:latest
+          args:
+            - "-HttpsServerCertChainFile=/config/ssl/tls.crt"
+            - "-HttpsServerKeyFile=/config/ssl/tls.key"
           ports:
             - containerPort: 7777
               protocol: TCP
@@ -36,6 +39,11 @@ spec:
               value: "1001"
             - name: STEAMBETA
               value: "false"
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: tls
+              mountPath: /config/ssl
           resources:
             requests:
               memory: "4Gi"
@@ -43,10 +51,10 @@ spec:
             limits:
               memory: "12Gi"
               cpu: "1"
-          volumeMounts:
-            - name: config
-              mountPath: /config
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: satisfactory-pvc
+        - name: tls
+          secret:
+            secretName: satisfactory-tls
