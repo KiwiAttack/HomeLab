@@ -44,8 +44,6 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: tls
-              mountPath: /config/ssl
           resources:
             requests:
               memory: "4Gi"
