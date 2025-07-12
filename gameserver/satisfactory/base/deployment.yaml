@@ -27,8 +27,6 @@ spec:
               cp /secret/* /config/ssl/
               chown -R 1001:1001 /config/ssl
           volumeMounts:
-            - name: tls
-              mountPath: /secret
             - name: config
               mountPath: /config
       containers:
