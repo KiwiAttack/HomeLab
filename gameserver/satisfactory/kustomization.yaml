@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - base/namespace.yaml
   - base/deployment.yaml
-  - base/redeploy.yaml
   - storage/pv-satisfactory.yaml
