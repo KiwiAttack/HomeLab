@@ -26,8 +26,7 @@ spec:
         - name: satisfactory
           image: wolveix/satisfactory-server:latest
           args:
-            - "-HttpsServerCertChainFile=/config/ssl/tls.crt"
-            - "-HttpsServerKeyFile=/config/ssl/tls.key"
+            - "-ini:Engine:[SystemSettings]:FG.DedicatedServer.AllowInsecureLocalAccess=1"
           ports:
             - containerPort: 7777
               protocol: TCP
