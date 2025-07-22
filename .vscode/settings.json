@@ -1,0 +1,6 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/v1%40persistentvolumeclaim": "file:///home/kiwi/HomeLab/apps/homepage/storage/homepage-pvc.yaml",
+        "kubernetes://schema/apps/v1@deployment": "file:///home/kiwi/HomeLab/apps/homepage/base/deployment.yaml"
+    }
+}
