@@ -47,6 +47,9 @@ spec:
           - job_name: 'crowdsec'
             static_configs:
               - targets: ['192.168.178.200:6060']
+          - job_name: 'PC'
+            static_configs:
+              - targets: ['192.168.178.45:9100']
           - job_name: 'blackbox'
             metrics_path: /probe
             params:
