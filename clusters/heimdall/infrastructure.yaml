@@ -105,20 +105,3 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
----
-# Cert
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kiwilab-cert
-  namespace: flux-system
-spec:
-  dependsOn:
-  - name: cert-manager
-  interval: 10m
-  path: ./infrastructure/kiwilab-cert
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system

@@ -5,6 +5,7 @@ metadata:
   name: wiki-ingress
   namespace: wiki
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
@@ -15,7 +16,7 @@ spec:
   tls:
     - hosts:
         - wiki.kiwilab.dev
-      secretName: kiwilab-wildcard-tls
+      secretName: wiki.kiwilab.dev-cert
   rules:
     - host: wiki.kiwilab.dev
       http:

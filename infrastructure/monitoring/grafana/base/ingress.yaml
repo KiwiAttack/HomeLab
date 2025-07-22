@@ -5,6 +5,7 @@ metadata:
   name: grafana-ingress
   namespace: monitoring
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
@@ -15,7 +16,7 @@ spec:
   tls:
     - hosts:
         - grafana.kiwilab.dev
-      secretName: kiwilab-wildcard-tls
+      secretName: grafana.kiwilab.dev-cert
   rules:
     - host: grafana.kiwilab.dev
       http:
