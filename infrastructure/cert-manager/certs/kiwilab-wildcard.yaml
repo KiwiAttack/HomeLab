@@ -11,3 +11,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - '*.kiwilab.dev'
+    - 'kiwilab.dev'
