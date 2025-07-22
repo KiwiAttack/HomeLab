@@ -5,7 +5,7 @@ rules:
     max: 120
     level: warning
     ignore: |
-      clusters/heimdall/flux-system/gotk-components.yaml
+      ./clusters/heimdall/flux-system/gotk-components.yaml
       .github/workflows/validate.yaml
   trailing-spaces:
     level: warning
