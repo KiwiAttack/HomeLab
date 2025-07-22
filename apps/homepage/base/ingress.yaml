@@ -17,7 +17,7 @@ spec:
   tls:
     - hosts:
         - homepage.kiwilab.dev
-      secretName: homepage.kiwilab.dev-cert
+      secretName: kiwilab-wildcard-tls
   rules:
     - host: homepage.kiwilab.dev
       http:
