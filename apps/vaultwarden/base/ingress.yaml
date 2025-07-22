@@ -5,7 +5,6 @@ metadata:
   name: vaultwarden-ingress
   namespace: vaultwarden
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
@@ -16,7 +15,7 @@ spec:
   tls:
     - hosts:
         - vault.kiwilab.dev
-      secretName: vault.kiwilab.dev-cert
+      secretName: kiwilab-wildcard-tls
   rules:
     - host: vault.kiwilab.dev
       http:

@@ -6,3 +6,4 @@ resources:
   - base/jetstack-repo.yaml
   - base/helm-release.yaml
   - cloudflare-api-token.sops.yaml
+  - certs/kiwilab-wildcard.yaml

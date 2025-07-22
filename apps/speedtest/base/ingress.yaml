@@ -5,7 +5,6 @@ metadata:
   name: speedtest-tracker
   namespace: speedtest-tracker
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
@@ -16,7 +15,7 @@ spec:
   tls:
     - hosts:
         - speedtest.kiwilab.dev
-      secretName: speedtest.kiwilab.dev-cert
+      secretName: kiwilab-wildcard-tls
   rules:
     - host: speedtest.kiwilab.dev
       http:
