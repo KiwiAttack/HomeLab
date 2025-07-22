@@ -8,3 +8,4 @@ resources:
   - base/ingress.yaml
   - base/rbac.yaml
   - storage/homepage-pvc.yaml
+  - cloudflare-api-token-secret.yaml
