@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: speedtest-tracker
   namespace: speedtest-tracker
+  labels:
+    app: speedtest-tracker
 spec:
   selector:
     app: speedtest-tracker

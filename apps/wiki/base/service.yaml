@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: wiki-service
   namespace: wiki
+  labels:
+    app: wiki
 spec:
   selector:
     app: wiki
