@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: speedtest-tracker
+        app.kubernetes.io/name: speedtest-tracker
     spec:
       containers:
         - name: speedtest-tracker
