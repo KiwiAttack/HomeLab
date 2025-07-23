@@ -6,5 +6,7 @@ resources:
   - base/deployment.yaml
   - base/service.yaml
   - base/ingress.yaml
-  - base/rbac.yaml
+  - base/clusterrole.yaml
+  - base/secret.yaml
+  - base/serviceaccount.yaml
   - storage/homepage-pvc.yaml
