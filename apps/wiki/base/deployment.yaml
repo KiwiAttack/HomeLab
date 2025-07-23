@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   name: wiki
   namespace: wiki
+  lables:
+    app: wiki
 spec:
   replicas: 1
   selector:
