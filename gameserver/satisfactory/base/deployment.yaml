@@ -18,6 +18,7 @@ spec:
     metadata:
       labels:
         app: satisfactory
+        app.kubernetes.io/name: satisfactory
     spec:
       hostNetwork: true
       nodeSelector:

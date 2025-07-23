@@ -18,6 +18,7 @@ spec:
     metadata:
       labels:
         app: valheim
+        app.kubernetes.io/name: valheim
     spec:
       hostNetwork: true
       nodeSelector:
