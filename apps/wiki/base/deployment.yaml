@@ -5,7 +5,7 @@ metadata:
   name: wiki
   namespace: wiki
   labels:
-    app.kubernetes.io/name: wiki
+    app: wiki
 spec:
   replicas: 1
   selector:
@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: wiki
+        app.kubernetes.io/name: wiki
     spec:
       nodeSelector:
         node-type: bare-metal

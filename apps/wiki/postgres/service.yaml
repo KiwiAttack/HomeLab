@@ -4,8 +4,6 @@ kind: Service
 metadata:
   name: postgres-wiki-service
   namespace: wiki
-  labels:
-    app.kubernetes.io/name: postgres-wiki
 spec:
   selector:
     app: postgres-wiki

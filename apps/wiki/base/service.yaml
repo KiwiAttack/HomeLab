@@ -5,7 +5,7 @@ metadata:
   name: wiki-service
   namespace: wiki
   labels:
-    app.kubernetes.io/name: wiki
+    app: wiki
 spec:
   selector:
     app: wiki
