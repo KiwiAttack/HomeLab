@@ -4,8 +4,8 @@ kind: Deployment
 metadata:
   name: wiki
   namespace: wiki
-  lables:
-    app: wiki
+  labels:
+    app.kubernetes.io/name: wiki
 spec:
   replicas: 1
   selector:

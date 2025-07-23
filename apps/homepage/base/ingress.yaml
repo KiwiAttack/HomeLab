@@ -4,6 +4,8 @@ kind: Ingress
 metadata:
   name: homepage
   namespace: homepage
+  labels:
+    app.kubernetes.io/name: homepage
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"

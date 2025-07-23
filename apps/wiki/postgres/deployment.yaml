@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   name: postgres-wiki
   namespace: wiki
+  labels:
+    app.kubernetes.io/name: postgres-wiki
 spec:
   replicas: 1
   selector:

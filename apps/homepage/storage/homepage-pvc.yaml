@@ -4,6 +4,8 @@ kind: PersistentVolume
 metadata:
   name: homepage-nfs-pv
   namespace: homepage
+  labels:
+    app.kubernetes.io/name: homepage
 spec:
   capacity:
     storage: 10Gi
@@ -21,6 +23,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: homepage-nfs-pvc
   namespace: homepage
+  labels:
+    app.kubernetes.io/name: homepage
 spec:
   accessModes:
     - ReadWriteMany

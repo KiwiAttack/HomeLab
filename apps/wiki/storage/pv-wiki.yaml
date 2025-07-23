@@ -5,6 +5,8 @@ kind: PersistentVolume
 metadata:
   name: wiki-nfs-pv
   namespace: wiki
+  labesl:
+    app.kubernetes.io/name: wiki
 spec:
   capacity:
     storage: 5Gi
@@ -23,6 +25,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: wiki-nfs-pvc
   namespace: wiki
+  labels:
+    app.kubernetes.io/name: wiki
 spec:
   accessModes:
     - ReadWriteMany

@@ -5,6 +5,8 @@ kind: PersistentVolume
 metadata:
   name: postgres-wiki-pv
   namespace: wiki
+  labels:
+    app.kubernetes.io/name: postgres-wiki
 spec:
   capacity:
     storage: 5Gi
@@ -22,6 +24,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-wiki-pvc
   namespace: wiki
+  labels:
+    app.kubernetes.io/name: postgres-wiki
 spec:
   accessModes:
     - ReadWriteOnce

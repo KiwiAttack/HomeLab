@@ -4,6 +4,8 @@ kind: Ingress
 metadata:
   name: wiki-ingress
   namespace: wiki
+  labels:
+    app.kubernetes.io/name: wiki
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
